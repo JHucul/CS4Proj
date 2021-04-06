@@ -35,7 +35,7 @@ router.post('/fileupload', function(req, res){
 
 router.get('/getTextLogText', function(req, res){
   var text;
-  fs.readFile((__dirname,'public/TextLog.txt'), (err, data) => {
+  fs.readFile((__dirname,'public/logs/TextLog.txt'), (err, data) => {
       if (err) throw err;
     
       text = data.toString()
@@ -44,7 +44,7 @@ router.get('/getTextLogText', function(req, res){
 })
 
 router.post('/setTextLogText', function(req, res){////req.query for number, req.body for strings
-   fs.appendFile((__dirname,'public/TextLog.txt'), req.body.text, (err) => {
+   fs.appendFile((__dirname,'public/logs/TextLog.txt'), req.body.text, (err) => {
     if (err) {
       console.log(err);
     }
@@ -65,7 +65,7 @@ router.post('/setTextLogText', function(req, res){////req.query for number, req.
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
 
-    fs.writeFile((__dirname,'public/TextLog.txt'),"", (err) => { 
+    fs.writeFile((__dirname,'public/logs/TextLog.txt'),"", (err) => { 
         
       // In case of a error throw err. 
       if (err) throw err; 
