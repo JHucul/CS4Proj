@@ -23,8 +23,8 @@ app.get("/",function(req,res) {
 });
 
 
-app.get("/SignIn",function(req,res) {
-    res.sendFile(path.resolve((__dirname,"public/views/login.html")));
+app.get("/Chat",function(req,res) {
+    res.sendFile(path.resolve((__dirname,"public/views/chat.html")));
 });
 
 app.get("/CreateChat",function(req,res) {
