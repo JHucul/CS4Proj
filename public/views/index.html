@@ -6,19 +6,17 @@
     </head>
     <body>
 
-	  <a href="/">Sign In</a>
-	  |
-	  <a href="/Chat">Chat</a>
-	  |
-	  <a href="/CreateChat">Create Chat</a>
-	  <br>
 	  <h1><u>Profile</u></h1>
 	  <br>
 	  <br>
-	  <input type="submit">
+	  <input id='go' type="submit" onclick="redirect()">
 
     </body>
     <script>
-
+      function redirect(){
+        // for adding passwords later:
+        // if(){}
+        window.location.href = window.location.href + 'Chat'
+      }
     </script>
 </html>
