@@ -4,11 +4,12 @@ var router = express.Router();
 var formidable = require('formidable');
 var mv = require('mv');
 const fs = require('fs');
+
 var info = require("./InfoContainer");
- 
 
 let pathName = "";
-let CurChatDir = (__dirname,'public/logs/GlobalChat1.txt');
+//let curChatDir = (__dirname,'public/logs/GlobalChat1.txt');
+let curChatNum = 0;
 
 /*
 router.get("/setFileLocation",function(req,res){
@@ -32,23 +33,27 @@ router.post('/fileupload', function(req, res){
 
 router.post('/ChangeChat',function(req,res) {
     //console.log(info.ChatContainer[req.body.number].name)
-    CurChatDir = info.ChatContainer[req.body.number].path;
+    //curChatDir = info.ChatContainer[req.body.number].path;
+    curChatNum = req.body.number;
     res.json({default:"text"});
 });
 
 router.get('/getTextLogText', function(req, res){
-  var text;
-  //(__dirname,'public/logs/GlobalChat1.txt')
-  fs.readFile(CurChatDir, (err, data) => {
+  //res.json({textLog:info.ChatContainer[curChatNum].textLog});
+  fs.readFile(info.ChatContainer[curChatNum].publicPath, (err, data) => {
       if (err) throw err;
-    
-      text = data.toString();
-      res.json({textLog:text});
+      res.json({textLog:data.toString()});
   })
 })
 
 router.post('/setTextLogText', function(req, res){////req.query for get, req.body for post
-   fs.appendFile(CurChatDir, req.body.text, (err) => {
+   //info.ChatContainer[curChatNum].textLog += req.body.text;
+   fs.appendFile(info.ChatContainer[curChatNum].publicPath, req.body.text, (err) => {
+     if (err) {
+        console.log(err);
+      }
+    });
+   fs.appendFile(info.ChatContainer[curChatNum].devPath, req.body.text + "PlaceHolderforIP", (err) => {
       if (err) {
         console.log(err);
       }
@@ -57,13 +62,13 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
 })
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
-
-    fs.writeFile(CurChatDir,"", (err) => { 
+    //info.ChatContainer[curChatNum].textLog = '';
+    fs.writeFile(info.ChatContainer[curChatNum].publicPath,'', (err) => { 
         
       // In case of a error throw err. 
       if (err) throw err; 
   })
-    res.json({default:"text"});
+    res.json({default:'text'});
 })
 
 module.exports = router;

@@ -61,6 +61,7 @@
     function ChangeChat(num){
       $.post("/ChangeChat", {number:num}, null);
       ShowTextLogBut();
+      document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
     }
 
   	window.onload = function NewFunction() {
