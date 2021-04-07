@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Picture Display and Upload</title>
+    <title>Chat</title>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
 </head>
 <body>
-  <a href="/">Text Log</a>
+  <a href="/">Chat</a>
   |
-  <a href="/uploadimage">Upload Image</a>
+  <a href="/SignIn">Sign In</a>
+  |
+  <a href="/CreateChat">Create Chat</a>
 
   <br>
-  <h1><u>Text Log</u></h1>
-  <input type="button" id="dispButtn" value="Display">
+  <h1><u>Global Chat</u></h1>
+
+  <input type="button" id="global1" value="Global Chat 1" onclick="ChangeChat(0)">
+  <input type="button" id="global2" value="Global Chat 2" onclick="ChangeChat(1)">
+  <input type="button" id="global3" value="Global Chat 3" onclick="ChangeChat(2)">
+
+  <br>
+  <br>
   <label for="nameInput">Your Name:</label>
   <input type="text" id="nameInput" value="Name">
   <br>
   <br>
-  <textarea id="textDisplay" rows="20" cols="75" readonly></textarea>
+  <textarea id="textDisplay" rows="20" cols="50" readonly></textarea>
   <br>
   <br>
   <label for="input">Your Message:</label>
@@ -29,7 +37,7 @@
   	setInterval(ShowTextLogBut, 500);
 
     function ShowTextLog(data){
-    	$("#textDisplay").val(data.textLog)
+    	$("#textDisplay").val(data.textLog);
     	if(document.getElementById("textDisplay").scrollTop >= document.getElementById("textDisplay").scrollHeight - document.getElementById("textDisplay").scrollHeight*.5)
 			document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
     }
@@ -37,21 +45,29 @@
       	$.get("/getTextLogText", null, ShowTextLog);
     }
     function InputText(){
-    	$.post('/setTextLogText', {text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n"}, null)
-      	$.get("/getTextLogText", null, ShowTextLog);
+    	if($("#input").val() != "" && $("#nameInput").val() != "" && $("#nameInput").val() != "Name"){
+        $.post('/setTextLogText', {text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n"}, null)
+          $.get("/getTextLogText", null, ShowTextLog);
+        }
+        else if($("#input").val() == "")
+          alert("You need to input somthing to send")
+        else if($("#nameInput").val() == "" || $("#nameInput").val() == "Name")
+          alert("You need to input your name")
     }
     function ClearTextLog(data){
       	$.post("/clearTextLogText", null, null);
       	ShowTextLogBut();
     }
+    function ChangeChat(num){
+      $.post("/ChangeChat", {number:num}, null);
+      ShowTextLogBut();
+    }
 
-
-	window.onload = function NewFunction() {
-		document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
+  	window.onload = function NewFunction() {
+  		document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
     }
     $(document).ready(function(){ 
       $.get("/getTextLogText", null, ShowTextLog);
-      $("#dispButtn").click(ShowTextLogBut);
       $("#sendBut").click(InputText);
       $("#clearBut").click(ClearTextLog);
       $('#input').keydown(function(e){

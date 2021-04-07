@@ -19,26 +19,17 @@ app.use('/', express.static('./'));
 //req is info sending to server from client.
 //res is info sending to client from server.
 app.get("/",function(req,res) {
-    res.sendFile(path.resolve(__dirname,"public/views/","index.html"));
+    res.sendFile(path.resolve((__dirname,"public/views/index.html")));
 });
 
 
-app.get("/uploadimage",function(req,res) {
-    //console.log(path.resolve(__dirname,"setMinMax.html"));
-    res.sendFile(path.resolve(__dirname,"uploadImage.html"));
-});
-/*
-app.post("/setFileLocation", function(req,res){
-    imagePathName = req.body.pathName;
-    res.json({pathName:imagePathName});
-    console.log(imagePathName)
-})
-*/
-app.get("getUpload", (req, res) => {
-  res.sendFile(path.join(__dirname, "./tempFiles/image.png"));
+app.get("/SignIn",function(req,res) {
+    res.sendFile(path.resolve((__dirname,"public/views/login.html")));
 });
 
-
+app.get("/CreateChat",function(req,res) {
+    res.sendFile(path.resolve((__dirname,"public/views/chatCreation.html")));
+});
 //below is a wrapper of http.createServer(requestHandler).listen(3000);
 app.listen(3000,function() {
     console.log("started on port 3000");
