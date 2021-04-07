@@ -2,11 +2,13 @@ let express = require('express');
 let path = require("path");
 var bodyParser = require('body-parser');   //new Need to add for post
 var routes = require("./routes");
+var info = require("./InfoContainer");
 
 let app = express();
 app.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for post
 app.use(bodyParser.json());                          //new Need to add for post
 app.use(routes);
+app.use(info);
 
 
 
