@@ -30,6 +30,9 @@ app.get("/Chat",function(req,res) {
 app.get("/CreateChat",function(req,res) {
     res.sendFile(path.resolve((__dirname,"public/views/chatCreation.html")));
 });
+app.post("/Login", function(req, res) {
+
+})
 //below is a wrapper of http.createServer(requestHandler).listen(3000);
 app.listen(3000,function() {
     console.log("started on port 3000");
