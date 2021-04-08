@@ -12,7 +12,7 @@ app.use(info);
 
 
 
-let imagePathName = ""
+let imagePathName = "";
 
 //app.use(express.static('./public'))
 app.use('/', express.static('./'));

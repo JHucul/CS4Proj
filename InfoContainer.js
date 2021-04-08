@@ -34,6 +34,7 @@ let chat3 = new Chat("Global Chat 3", "123", "blue",
 					(__dirname,'public/logs/GlobalChat3/DevChat.txt'));
 
 router.ChatContainer = [chat1, chat2, chat3]
+router.joinedChats = [chat1, chat2, chat3];
 
 router.post('/CreateChatFunction',function(req,res) {
 
@@ -54,9 +55,21 @@ router.post('/CreateChatFunction',function(req,res) {
 	    if (err) throw err; 
 	})
 
+	let aNewChat = new Chat(req.body.name, "123", "blue", 
+					(__dirname,'public/logs/' + req.body.name + '/DisplayedChat.txt'), 
+					(__dirname,'public/logs/' + req.body.name + '/DevChat.txt'));
+	router.ChatContainer[router.ChatContainer.length] = aNewChat;
+	router.joinedChats[router.joinedChats.length] = aNewChat
+
 	//this.ChatContainer[this.ChatContainer.length] = new Chat()
     //curChatNum = req.body.number;
     res.json({default:"text"});
+});
+
+router.get('/CreateChatButtons',function(req,res) {
+
+    res.json({chats:router.ChatContainer});
+
 });
 
 module.exports = router;

@@ -25,19 +25,25 @@
     <input type="button" id="creatBut" value="Create">
 
 
+     <div id="includedContent"></div>
+
+
     <script>
       function redirect(){
         // for adding passwords later:
         // if(){}
         window.location.href = '/Chat'
       }
+
+
       function CreateNewChat(){
         if($("#chatName").val() != ""){
           $.post("/CreateChatFunction", {name:$("#chatName").val()}, null)
           redirect();
         }
-        else if($("#chatName").val() == "")
+        else if($("#chatName").val() == ""){
           alert("Put in a chat name");
+        }
       }
 
       $(document).ready(function(){ 

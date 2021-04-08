@@ -13,14 +13,17 @@
   <a href="/CreateChat">Create Chat</a>
 
   <br>
-  <h1><u>Global Chat</u></h1>
+  <h1 id="myTitle" value="Test"><u>Global Chat</u></h1>
 
   <input type="button" id="global1" value="Global Chat 1" onclick="ChangeChat(0)">
   <input type="button" id="global2" value="Global Chat 2" onclick="ChangeChat(1)">
   <input type="button" id="global3" value="Global Chat 3" onclick="ChangeChat(2)">
+  <br>
+  <br>
 
+  <div id="container"></div>
   <br>
-  <br>
+
   <label for="nameInput">Your Name:</label>
   <input type="text" id="nameInput" value="Name">
   <br>
@@ -59,15 +62,45 @@
       	ShowTextLogBut();
     }
     function ChangeChat(num){
+      //console.log(num);
       $.post("/ChangeChat", {number:num}, null);
       ShowTextLogBut();
       document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
     }
-
+    function CreateChatButtons(data){
+      for (var i = 3; i < data.chats.length; i++) { // -3
+        //console.log(data.chats[i].name);
+        /*
+         var btn = document.createElement('button').prop({
+              type: 'button',
+              innerHTML: data.chats[i].name
+              //id: data.chats[i].name
+              //onclick : ChangeChat(data.chats[i])
+              //class: 'btn-styled'
+            })
+        */
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.name = i;
+        btn.id = data.chats[i].name; 
+        btn.value = data.chats[i].name;
+        btn.onclick = function(j) { return function() { ChangeChat(j); }; }(i)
+        $('#container').append(btn);
+      }
+    }
   	window.onload = function NewFunction() {
   		document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
     }
     $(document).ready(function(){ 
+      /*
+      $('#container').append($(document.createElement('button')).prop({
+          type: 'button',
+          innerHTML: 'Press me'
+          //class: 'btn-styled'
+        })
+      );
+      */
+      $.get("/CreateChatButtons", null, CreateChatButtons);
       $.get("/getTextLogText", null, ShowTextLog);
       $("#sendBut").click(InputText);
       $("#clearBut").click(ClearTextLog);
