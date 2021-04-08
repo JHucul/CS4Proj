@@ -34,7 +34,6 @@ let chat3 = new Chat("Global Chat 3", "123", "blue",
 					(__dirname,'public/logs/GlobalChat3/DevChat.txt'));
 
 router.ChatContainer = [chat1, chat2, chat3]
-router.joinedChats = [chat1, chat2, chat3];
 
 router.post('/CreateChatFunction',function(req,res) {
 
@@ -43,23 +42,24 @@ router.post('/CreateChatFunction',function(req,res) {
 	       //EEXIST is the error code that is given when path is arealdy there
 	       //return console.error(err);
 	    }
+	    else{
+			fs.writeFile('public/logs/' + req.body.name + '/DevChat.txt', "data text", (err) => { 
+			      
+			    // In case of a error throw err. 
+			    if (err) throw err; 
+			})
+			fs.writeFile('public/logs/' + req.body.name + '/DisplayedChat.txt', "data text", (err) => { 
+			      
+			    // In case of a error throw err. 
+			    if (err) throw err; 
+			})
+	    }
 	});
-	fs.writeFile('public/logs/' + req.body.name + '/DevChat.txt', "data text", (err) => { 
-	      
-	    // In case of a error throw err. 
-	    if (err) throw err; 
-	})
-	fs.writeFile('public/logs/' + req.body.name + '/DisplayedChat.txt', "data text", (err) => { 
-	      
-	    // In case of a error throw err. 
-	    if (err) throw err; 
-	})
 
 	let aNewChat = new Chat(req.body.name, "123", "blue", 
 					(__dirname,'public/logs/' + req.body.name + '/DisplayedChat.txt'), 
 					(__dirname,'public/logs/' + req.body.name + '/DevChat.txt'));
 	router.ChatContainer[router.ChatContainer.length] = aNewChat;
-	router.joinedChats[router.joinedChats.length] = aNewChat
 
 	//this.ChatContainer[this.ChatContainer.length] = new Chat()
     //curChatNum = req.body.number;
