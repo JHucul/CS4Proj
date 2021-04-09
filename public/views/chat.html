@@ -1,6 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <style>
+      body {
+        background-color: grey;
+      }
+
+      p {
+        font-family: verdana;
+        font-size: 20px;
+      }
+      h1 {
+        font-family: verdana;
+        font-size: 50px;
+        color: black;
+        text-align: center;
+      }
+      label {
+        font-family: verdana;
+        font-size: 20px;
+        color: black;
+        text-align: center;
+      }
+      a {
+        font-family: verdana;
+        font-size: 20px;
+      }
+      a:hover {
+        color: #0CF;
+      }
+      input {
+        font-family: verdana;
+        font-size: 20px;
+        color: black;
+        text-align: center;
+      }
+      textarea {
+        font-family: verdana;
+        font-size: 20px;
+      }
+
+      .Title {
+        will-change: transform;
+        -webkit-transform: scaleX(1.5) scaleY(1.5) rotateX(0deg);
+        -webkit-transform-origin: center 100%;
+        opacity: 1;
+      }
+      /*
+      .Title:hover {
+        background: white;//#3e4e62
+      }
+      */
+    </style>
     <title>Chat</title>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
@@ -12,8 +64,7 @@
   |
   <a href="/CreateChat">Create Chat</a>
 
-  <br>
-  <h1 id="myTitle" value="Test"><u>Global Chat</u></h1>
+  <h1 class="Title"><u>Global Chat</u></h1>
 
   <input type="button" id="global1" value="Global Chat 1" onclick="ChangeChat(0)">
   <input type="button" id="global2" value="Global Chat 2" onclick="ChangeChat(1)">
