@@ -1,4 +1,4 @@
-function User(_name, _passwd){
+let User = function(_name, _passwd){
     this.name = _name
     this.passwd = _passwd
 }

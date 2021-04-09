@@ -13,13 +13,22 @@
     <label>Password</label>
     <input type="text" id='passwd'>
 	  <br>
-	  <input id='go' type="submit" onclick="redirect()">
+	  <input id='go' type="submit" onclick="redirectLogin()" value='Login'>
+    <br>
+    <label>Username</label>
+    <input type="text" if='name'>
+    <label>Password</label>
+    <input type="text" id='passwd'>
+	  <br>
+	  <input id='go' type="submit" onclick="redirectRegister()" value='Register'>
 
     </body>
     <script>
-      function redirect(){
-        success()
-        // $.post("/Login", {name:$('#name').val(), passwd:$('#passwd').val()})
+      function redirectLogin(){
+        $.post("/Login", {name:$('#name').val(), passwd:$('#passwd').val(), success})
+      }
+      function redirectRegister(){
+        $.post("/Register", {name:$('#name').val(), passwd:$('#passwd').val(), success})
       }
       function success(){
         window.location.href = window.location.href + 'Chat'
