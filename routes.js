@@ -86,12 +86,12 @@ router.post('/Register', function(req, res){
 
         // add a new record
         let present = false
-        for(user in logins.users){
-          if(user.name == req.body.name){
+        logins.users.forEach(element => {
+          if(element.username == req.body.name){
             // res.status(500).send({error: 'user already exists'});
             present = true
           }
-        }
+        });
         if(present == false){
           logins.users.push({
             username: req.body.name,
