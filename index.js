@@ -11,11 +11,15 @@ app.use(info);
 
 
 
+
 let imagePathName = "";
 
 //app.use(express.static('./public'))
 app.use('/', express.static('./'));
 
+app.get('/style.css', function(req, res) {
+  res.sendFile(__dirname + "/public/views/WebpageStyle.css");
+});
 
 //req is info sending to server from client.
 //res is info sending to client from server.
