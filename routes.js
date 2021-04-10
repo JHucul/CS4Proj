@@ -8,11 +8,8 @@ const fs = require('fs');
 var info = require("./InfoContainer");
 
 let pathName = "";
-//let curChatDir = (__dirname,'public/logs/GlobalChat1.txt');
-let curChatNum = 0;
 
-/*
-router.get("/setFileLocation",function(req,res){
+router.get("/getFileLocation",function(req,res){
       res.json({imagepathName:pathName});
 });
 
@@ -20,22 +17,14 @@ router.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
-      var newpath = __dirname + '/public/' + files.filetoupload.name;
+      var newpath = __dirname + '/public/images/' + files.filetoupload.name;
       mv(oldpath, newpath, function (err) {
         if (err) throw err;
-        pathName = '/public/' + files.filetoupload.name
-        res.write('File uploaded and moved!');
-        res.end();
+        pathName = '/public/images' + files.filetoupload.name
+        //res.write('File uploaded and moved!');
+        //res.end();
       });
     });
-});
-*/
-
-router.post('/ChangeChat',function(req,res) {
-    //console.log(info.ChatContainer[req.body.number].name)
-    //curChatDir = info.ChatContainer[req.body.number].path;
-    curChatNum = req.body.number;
-    res.json({default:"text"});
 });
 
 router.get('/getTextLogText', function(req, res){
