@@ -5,8 +5,7 @@ let curChatNum = 0;
 
 function ShowTextLog(data){
 	$("#textDisplay").val(data.textLog);
-  //$("#TestBox").text(data.textLog);
-  $("#TestBox").html(data.textLog).text()
+  $("#chatBox").html(data.textLog).text()
 	if(document.getElementById("textDisplay").scrollTop >= document.getElementById("textDisplay").scrollHeight - document.getElementById("textDisplay").scrollHeight*.5)
 	document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 }
@@ -21,17 +20,23 @@ function InputText(){
   else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
     $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n" + 
                               "<img src=" + "/public/images/" + $('#fileStuff')[0].files[0].name + ">" + "\n" }, null)
-    $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+    //$.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
     //$.post("/fileupload", {file:$('#fileStuff')[0].files[0]}, null);
+    $("#picForm").submit();
+    $("#input").val("");
+    $("#fileStuff").val("");
   }
   else if($("#input").val() != ""){//case for just text input
     $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n"}, null)
     $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+    $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
     $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + "<img src=" + "/public/images/" + $('#fileStuff')[0].files[0].name + ">" + "\n"}, null)
-    $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+    //$.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
     //$.post("/fileupload", {file:$('#fileStuff')[0].files[0]}, null);
+    $("#picForm").submit();
+    $("#fileStuff").val("");
   }
 }
 function ClearTextLog(data){
