@@ -2,57 +2,7 @@
 <html lang="en">
 <head>
 
-    <style>
-      body {
-        background-color: grey;
-      }
-
-      p {
-        font-family: verdana;
-        font-size: 20px;
-      }
-      h1 {
-        font-family: verdana;
-        font-size: 50px;
-        color: black;
-        text-align: center;
-      }
-      label {
-        font-family: verdana;
-        font-size: 20px;
-        color: black;
-        text-align: center;
-      }
-      a {
-        font-family: verdana;
-        font-size: 20px;
-      }
-      a:hover {
-        color: #0CF;
-      }
-      input {
-        font-family: verdana;
-        font-size: 20px;
-        color: black;
-        text-align: center;
-      }
-      textarea {
-        font-family: verdana;
-        font-size: 20px;
-      }
-
-      .Title {
-        will-change: transform;
-        -webkit-transform: scaleX(1.5) scaleY(1.5) rotateX(0deg);
-        -webkit-transform-origin: center 100%;
-        opacity: 1;
-      }
-      /*
-      .Title:hover {
-        background: white;//#3e4e62
-      }
-      */
-    </style>
+    <link rel="stylesheet" href="/style.css"> 
     <title>Chat</title>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
@@ -87,82 +37,18 @@
   <input type="button" id="sendBut" value="Send">
   <input type="button" id="clearBut" value="Clear Log">
 
-<script>
-  	setInterval(ShowTextLogBut, 500);
-
-    function ShowTextLog(data){
-    	$("#textDisplay").val(data.textLog);
-    	if(document.getElementById("textDisplay").scrollTop >= document.getElementById("textDisplay").scrollHeight - document.getElementById("textDisplay").scrollHeight*.5)
-			document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
-    }
-    function ShowTextLogBut(data){
-      	$.get("/getTextLogText", null, ShowTextLog);
-    }
-    function InputText(){
-    	if($("#input").val() != "" && $("#nameInput").val() != "" && $("#nameInput").val() != "Name"){
-        $.post('/setTextLogText', {text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n"}, null)
-          $.get("/getTextLogText", null, ShowTextLog);
-        }
-        else if($("#input").val() == "")
-          alert("You need to input somthing to send")
-        else if($("#nameInput").val() == "" || $("#nameInput").val() == "Name")
-          alert("You need to input your name")
-    }
-    function ClearTextLog(data){
-      	$.post("/clearTextLogText", null, null);
-      	ShowTextLogBut();
-    }
-    function ChangeChat(num){
-      //console.log(num);
-      $.post("/ChangeChat", {number:num}, null);
-      ShowTextLogBut();
-      document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
-    }
-    function CreateChatButtons(data){
-      for (var i = 3; i < data.chats.length; i++) { // -3
-        //console.log(data.chats[i].name);
-        /*
-         var btn = document.createElement('button').prop({
-              type: 'button',
-              innerHTML: data.chats[i].name
-              //id: data.chats[i].name
-              //onclick : ChangeChat(data.chats[i])
-              //class: 'btn-styled'
-            })
-        */
-        var btn = document.createElement('input');
-        btn.type = "button";
-        btn.name = i;
-        btn.id = data.chats[i].name; 
-        btn.value = data.chats[i].name;
-        btn.onclick = function(j) { return function() { ChangeChat(j); }; }(i)
-        $('#container').append(btn);
-      }
-    }
-  	window.onload = function NewFunction() {
-  		document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
-    }
-    $(document).ready(function(){ 
-      /*
-      $('#container').append($(document.createElement('button')).prop({
-          type: 'button',
-          innerHTML: 'Press me'
-          //class: 'btn-styled'
-        })
-      );
-      */
-      $.get("/CreateChatButtons", null, CreateChatButtons);
-      $.get("/getTextLogText", null, ShowTextLog);
-      $("#sendBut").click(InputText);
-      $("#clearBut").click(ClearTextLog);
-      $('#input').keydown(function(e){
-	    if(e.keyCode === 13){
-	    	InputText();
-	     }  
-	   });
-    });     
+  <input id="fileStuff" type="file" name="filetoupload">
 
 
-</script>
+  <form action="fileupload" method="post" enctype="multipart/form-data">
+  <br>
+  <input type="submit">
+  </form>
+
+  <div contentEditable="false" id="TestBox" class="chatDiv">
+    <img src="/public/images/test.png">
+  </div>
+
+<script src="/ChatHTMLScript.js"></script>
 </body>
 </html>
