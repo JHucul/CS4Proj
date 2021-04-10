@@ -9,12 +9,6 @@ router.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for po
 router.use(bodyParser.json());                          //new Need to add for post
 var info = require("./InfoContainer");
 
-let pathName = "";
-
-router.get("/getFileLocation",function(req,res){
-      res.json({imagepathName:pathName});
-});
-
 router.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
@@ -22,9 +16,6 @@ router.post('/fileupload', function(req, res){
       var newpath = __dirname + '/public/images/' + files.filetoupload.name;
       mv(oldpath, newpath, function (err) {
         if (err) throw err;
-        pathName = '/public/images' + files.filetoupload.name
-        //res.write('File uploaded and moved!');
-        //res.end();
       });
     });
 });
@@ -39,12 +30,12 @@ router.get('/getTextLogText', function(req, res){
 
 router.post('/setTextLogText', function(req, res){////req.query for get, req.body for post
    //info.ChatContainer[curChatNum].textLog += req.body.text;
-   fs.appendFile(info.ChatContainer[req.query.num].publicPath, req.body.text, (err) => {
+   fs.appendFile(info.ChatContainer[req.body.num].publicPath, req.body.text, (err) => {
      if (err) {
         console.log(err);
       }
     });
-   fs.appendFile(info.ChatContainer[req.query.num].devPath, req.body.text + "PlaceHolderforIP", (err) => {
+   fs.appendFile(info.ChatContainer[req.body.num].devPath, req.body.text + "PlaceHolderforIP", (err) => {
       if (err) {
         console.log(err);
       }
@@ -54,7 +45,7 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
     //info.ChatContainer[curChatNum].textLog = '';
-    fs.writeFile(info.ChatContainer[req.query.num].publicPath,'', (err) => { 
+    fs.writeFile(info.ChatContainer[req.body.num].publicPath,'', (err) => { 
         
       // In case of a error throw err. 
       if (err) throw err; 

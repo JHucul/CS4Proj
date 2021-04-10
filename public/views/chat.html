@@ -34,15 +34,11 @@
   <br>
   <label for="input">Your Message:</label>
   <input type="text" id="input">
-  <input type="button" id="sendBut" value="Send">
+  <input type="submit" id="sendBut" value="Send" >
   <input type="button" id="clearBut" value="Clear Log">
 
-  <input id="fileStuff" type="file" name="filetoupload">
-
-
-  <form action="fileupload" method="post" enctype="multipart/form-data">
-  <br>
-  <input type="submit">
+  <form id="picForm" action="fileupload" method="post" enctype="multipart/form-data">
+    <input id="fileStuff" type="file" name="filetoupload" >
   </form>
 
   <div contentEditable="false" id="TestBox" class="chatDiv">

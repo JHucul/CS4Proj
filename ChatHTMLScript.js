@@ -14,19 +14,28 @@ function ShowTextLogBut(data){
 	$.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
 }
 function InputText(){
-  console.log($("#fileStuff").val())
-	if($("#input").val() != "" && $("#nameInput").val() != "" && $("#nameInput").val() != "Name"){
-    $.post('/setTextLogText', {text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n" + 
-                              "<img src=" + $("#fileStuff").val() + ">" + "\n" }, null)
-    $.get("/getTextLogText", null, ShowTextLog);
-  }
-  else if($("#input").val() == "")
+  if($("#input").val() == ""  && $("#fileStuff").val() == "")//case for no pic or text
     alert("You need to input somthing to send")
-  else if($("#nameInput").val() == "" || $("#nameInput").val() == "Name")
+  else if($("#nameInput").val() == "" || $("#nameInput").val() == "Name")//case for no name
     alert("You need to input your name")
+  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
+    $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n" + 
+                              "<img src=" + "/public/images/" + $('#fileStuff')[0].files[0].name + ">" + "\n" }, null)
+    $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+    //$.post("/fileupload", {file:$('#fileStuff')[0].files[0]}, null);
+  }
+  else if($("#input").val() != ""){//case for just text input
+    $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n"}, null)
+    $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+  }
+  else if($("#fileStuff").val() != ""){//case for just pic input
+    $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + "<img src=" + "/public/images/" + $('#fileStuff')[0].files[0].name + ">" + "\n"}, null)
+    $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+    //$.post("/fileupload", {file:$('#fileStuff')[0].files[0]}, null);
+  }
 }
 function ClearTextLog(data){
-	$.post("/clearTextLogText", null, null);
+	$.post("/clearTextLogText", {num:curChatNum}, null);
 	ShowTextLogBut();
 }
 function ChangeChat(num){
