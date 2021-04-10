@@ -70,6 +70,44 @@ router.post('/clearTextLogText', function(req, res){////req.query for number, re
   })
     res.json({default:'text'});
 })
+router.post('/Login', function(req, res){
 
+})
+router.post('/Register', function(req, res){
+  fs.readFile('./logins.json', 'utf8', (err, data) => {
+
+    if (err) {
+        console.log(`Error reading file from disk: ${err}`);
+        res.status(500).send({error: 'read error'});
+    } else {
+
+        // parse JSON string to JSON object
+        const logins = JSON.parse(data);
+
+        // add a new record
+        let present = false
+        for(user in logins.users){
+          if(user.name == req.body.name){
+            // res.status(500).send({error: 'user already exists'});
+            present = true
+          }
+        }
+        if(present == false){
+          logins.users.push({
+            username: req.body.name,
+            password: req.body.passwd
+          });
+          // write new data back to the file
+          fs.writeFile('./logins.json', JSON.stringify(logins, null, 4), (err) => {
+            if (err) {
+              console.log(`Error writing file: ${err}`);
+              // res.status(500).send({error: 'write error'});
+            }
+          });
+          // res.status(200).send({success: 'success'});
+        }
+    }
+  });
+})
 module.exports = router;
 

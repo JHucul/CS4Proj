@@ -9,26 +9,26 @@
 	  <h1><u>Profile</u></h1>
 	  <br>
     <label>Username</label>
-    <input type="text" if='name'>
+    <input type="text" id='name'>
     <label>Password</label>
     <input type="text" id='passwd'>
-	  <br>
-	  <input id='go' type="submit" onclick="redirectLogin()" value='Login'>
+    <br>
+    <input id='go' type="submit" onclick="login()" value='Login'>
     <br>
     <label>Username</label>
-    <input type="text" if='name'>
+    <input type="text" id='nameR'>
     <label>Password</label>
-    <input type="text" id='passwd'>
-	  <br>
-	  <input id='go' type="submit" onclick="redirectRegister()" value='Register'>
+    <input type="text" id='passwdR'>
+    <br>
+    <input id='goR' type="submit" onclick="register()" value='Register'>
 
     </body>
     <script>
-      function redirectLogin(){
+      function login(){
         $.post("/Login", {name:$('#name').val(), passwd:$('#passwd').val(), success})
       }
-      function redirectRegister(){
-        $.post("/Register", {name:$('#name').val(), passwd:$('#passwd').val(), success})
+      function register(){
+        $.post("/Register", {name:$('#nameR').val(), passwd:$('#passwdR').val(), success})
       }
       function success(){
         window.location.href = window.location.href + 'Chat'
