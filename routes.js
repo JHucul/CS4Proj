@@ -4,7 +4,9 @@ var router = express.Router();
 var formidable = require('formidable');
 var mv = require('mv');
 const fs = require('fs');
-
+var bodyParser = require('body-parser'); 
+router.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for post
+router.use(bodyParser.json());                          //new Need to add for post
 var info = require("./InfoContainer");
 
 let pathName = "";
