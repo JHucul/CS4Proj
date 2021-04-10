@@ -60,14 +60,25 @@ router.post('/clearTextLogText', function(req, res){////req.query for number, re
     res.json({default:'text'});
 })
 router.post('/Login', function(req, res){
-
+  fs.readFile('./logins.json', 'utf8', (err, data) => {
+    const logins = JSON.parse(data);
+    let logined = false
+    logins.users.forEach(element => {
+      if(element.username == req.body.name && element.password == req.body.passwd){
+        res.redirect('/chat')
+        logined = true
+      }
+    });
+    if(logined = false)
+      return res.status(403).send({error: 'user does not exist'})
+  });
 })
 router.post('/Register', function(req, res){
   fs.readFile('./logins.json', 'utf8', (err, data) => {
 
     if (err) {
         console.log(`Error reading file from disk: ${err}`);
-        res.status(500).send({error: 'read error'});
+        // res.status(404).send({error: 'read error'});
     } else {
 
         // parse JSON string to JSON object
@@ -77,7 +88,7 @@ router.post('/Register', function(req, res){
         let present = false
         logins.users.forEach(element => {
           if(element.username == req.body.name){
-            // res.status(500).send({error: 'user already exists'});
+            // res.status(403).send({error: 'user already exists'});
             present = true
           }
         });
@@ -90,10 +101,10 @@ router.post('/Register', function(req, res){
           fs.writeFile('./logins.json', JSON.stringify(logins, null, 4), (err) => {
             if (err) {
               console.log(`Error writing file: ${err}`);
-              // res.status(500).send({error: 'write error'});
+              // res.status(404).send({error: 'write error'});
             }
           });
-          // res.status(200).send({success: 'success'});
+          res.redirect('/chat')
         }
     }
   });

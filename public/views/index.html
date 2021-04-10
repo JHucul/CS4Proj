@@ -8,30 +8,23 @@
 
 	  <h1><u>Profile</u></h1>
 	  <br>
-    <label>Username</label>
-    <input type="text" id='name'>
-    <label>Password</label>
-    <input type="text" id='passwd'>
-    <br>
-    <input id='go' type="submit" onclick="login()" value='Login'>
-    <br>
-    <label>Username</label>
-    <input type="text" id='nameR'>
-    <label>Password</label>
-    <input type="text" id='passwdR'>
-    <br>
-    <input id='goR' type="submit" onclick="register()" value='Register'>
+    <form method = "post" action="/Login"> 
+      <label>Username</label>
+      <input type="text" id='name' name="name">
+      <label>Password</label>
+      <input type="text" id='passwd' name="passwd">
+      <br>
+      <input id='go' type="submit" onclick="login()" value='Login'>
+    </form>
+    <form method = "post" action="/Register">
+      <br>
+      <label>Username</label>
+      <input type="text" id='nameR' name="name">
+      <label>Password</label>
+      <input type="text" id='passwdR' name="passwd">
+      <br>
+      <input id='goR' type="submit" onclick="register()" value='Register'>
+    </form>
 
     </body>
-    <script>
-      function login(){
-        $.post("/Login", {name:$('#name').val(), passwd:$('#passwd').val(), success})
-      }
-      function register(){
-        $.post("/Register", {name:$('#nameR').val(), passwd:$('#passwdR').val(), success})
-      }
-      function success(){
-        window.location.href = window.location.href + 'Chat'
-      }
-    </script>
 </html>
