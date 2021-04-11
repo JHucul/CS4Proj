@@ -100,3 +100,6 @@ Name2
 this is a picture
 <img src=/public/images/Capture.PNG>
 PlaceHolderforIP
+Name2
+<img src=/public/images/2021-02-24 11-58-44_x264.mp4>
+PlaceHolderforIP

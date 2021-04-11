@@ -244,3 +244,15 @@ PlaceHolderforIP
 Name2
 23
 PlaceHolderforIP
+Name2
+23
+PlaceHolderforIP
+Name2
+2
+PlaceHolderforIP
+Name2
+23
+PlaceHolderforIP
+Name2
+<img src=/public/images/Capture.PNG>
+PlaceHolderforIP

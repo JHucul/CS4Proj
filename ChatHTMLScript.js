@@ -4,10 +4,11 @@ setInterval(ShowTextLogBut, 500);
 let curChatNum = 0;
 
 function ShowTextLog(data){
-	$("#textDisplay").val(data.textLog);
   $("#chatBox").html(data.textLog).text()
+  /*
 	if(document.getElementById("textDisplay").scrollTop >= document.getElementById("textDisplay").scrollHeight - document.getElementById("textDisplay").scrollHeight*.5)
 	document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
+  */
 }
 function ShowTextLogBut(data){
 	$.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
@@ -46,7 +47,7 @@ function ClearTextLog(data){
 function ChangeChat(num){
   curChatNum = num;
   ShowTextLogBut();
-  document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
+  //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 }
 function CreateChatButtons(data){
   for (var i = 3; i < data.chats.length; i++) { // -3
@@ -55,12 +56,13 @@ function CreateChatButtons(data){
     btn.name = i;
     btn.id = data.chats[i].name; 
     btn.value = data.chats[i].name;
+    //btn.class = "ChatButton";
     btn.onclick = function(j) { return function() { ChangeChat(j); }; }(i)
     $('#container').append(btn);
   }
 }
 window.onload = function NewFunction() {
-	document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
+	//document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 }
 $(document).ready(function(){ 
   $.get("/CreateChatButtons", null, CreateChatButtons);

@@ -13,37 +13,36 @@
   <a href="/Chat">Chat</a>
   |
   <a href="/CreateChat">Create Chat</a>
+  <input type="button" id="clearBut" value="Clear Log">
 
   <h1 class="Title"><u>Global Chat</u></h1>
 
-  <input type="button" id="global1" value="Global Chat 1" onclick="ChangeChat(0)">
-  <input type="button" id="global2" value="Global Chat 2" onclick="ChangeChat(1)">
-  <input type="button" id="global3" value="Global Chat 3" onclick="ChangeChat(2)">
+  <input type="button" id="global1" value="Global 1" onclick="ChangeChat(0)">
+  <input type="button" id="global2" value="Global 2" onclick="ChangeChat(1)">
+  <input type="button" id="global3" value="Global 3" onclick="ChangeChat(2)">
   <br>
   <br>
-
   <div id="container"></div>
   <br>
-
-  <label for="nameInput">Your Name:</label>
-  <input type="text" id="nameInput" value="Name">
-  <br>
-  <br>
-  <textarea id="textDisplay" rows="20" cols="50" readonly></textarea>
-  <br>
-  <br>
-  <label for="input">Your Message:</label>
-  <input type="text" id="input">
-  <input type="submit" id="sendBut" value="Send">
-  <input type="button" id="clearBut" value="Clear Log">
-
-  <form id="picForm" action="fileupload" method="post" enctype="multipart/form-data">
-    <input id="fileStuff" type="file" name="filetoupload" >
-  </form>
 
   <div contentEditable="false" id="chatBox" class="chatDiv">
     <img src="/public/images/test.png">
   </div>
+  
+  <label for="nameInput">Your Name:</label>
+  <input type="text" id="nameInput" value="Name">
+  <br>
+  <br>
+  <input type="submit" id="sendBut" value="Send">
+  <label for="input">Your Message:</label>
+  <input type="text" id="input">
+
+  <form id="picForm" action="fileupload" method="post" enctype="multipart/form-data">
+    <label>Your Picture:
+      <input id="fileStuff" type="file" name="filetoupload" >
+    </label>
+  </form>
+
 
 <script src="/ChatHTMLScript.js"></script>
 </body>

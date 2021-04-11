@@ -3,25 +3,30 @@
     <head>
         <title>Login</title>
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="/style.css"> 
     </head>
     <body>
 
       <h1><u>Profile</u></h1>
       <br>
       <form action="/Login" method = "post"> 
-        <label>Username</label>
+        <label>Username:</label>
         <input type="text" id='name' name="name">
-        <label>Password</label>
+        <label>Password:</label>
         <input type="text" id='passwd' name="passwd">
+        <br>
         <br>
         <input id='go' type="submit" onclick="login()" value='Login'>
       </form>
+      <br>
+        <br>
       <form action="/Register" method = "post">
         <br>
-        <label>Username</label>
+        <label>Username:</label>
         <input type="text" id='nameR' name="name">
-        <label>Password</label>
+        <label>Password:</label>
         <input type="text" id='passwdR' name="passwd">
+        <br>
         <br>
         <input id='goR' type="submit" onclick="register()" value='Register'>
       </form>
