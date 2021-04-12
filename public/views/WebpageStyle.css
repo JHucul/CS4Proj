@@ -80,7 +80,7 @@ form, table {
   overflow-y:auto;
   position:relative;
   left:0px; 
-  top:-25px;
+  top:-10px;
   overflow-wrap: break-word
 }
 .chatDiv::-webkit-scrollbar {
