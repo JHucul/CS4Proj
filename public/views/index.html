@@ -7,28 +7,42 @@
     </head>
     <body>
 
-      <h1><u>Profile</u></h1>
-      <br>
-      <form action="/Login" method = "post"> 
-        <label>Username:</label>
-        <input type="text" id='name' name="name">
-        <label>Password:</label>
-        <input type="text" id='passwd' name="passwd">
-        <br>
-        <br>
-        <input id='go' type="submit" onclick="login()" value='Login'>
-      </form>
-      <br>
-        <br>
-      <form action="/Register" method = "post">
-        <br>
-        <label>Username:</label>
-        <input type="text" id='nameR' name="name">
-        <label>Password:</label>
-        <input type="text" id='passwdR' name="passwd">
-        <br>
-        <br>
-        <input id='goR' type="submit" onclick="register()" value='Register'>
-      </form>
+    <h1><u>Profile</u></h1>
+    <br>
+    <label>Username:</label>
+    <input type="text" id='name' name="name">
+    <label>Password:</label>
+    <input type="text" id='passwd' name="passwd">
+    <br>
+    <br>
+    <input id='go' type="submit" onclick='login()' value='Login'>
+    <br>
+    <br>
+    <br>
+    <label>Username:</label>
+    <input type="text" id='nameR' name="name">
+    <label>Password:</label>
+    <input type="text" id='passwdR' name="passwd">
+    <br>
+    <br>
+    <input id='goR' type="submit" onclick='register()' value='Register'>
     </body>
+    <script>
+      function register(){
+        $.post('/Register', {name: $('#nameR').val(), passwd: $('#passwdR').val()}, successR)
+      }
+      function login(){
+        $.post('/Login', {name: $('#name').val(), passwd: $('#passwd').val()}, successL)
+      }
+      function successL(){
+        sessionStorage.name = $('#name').val()
+        sessionStorage.passwd = $('#passwd').val()
+        window.location.href = window.location.href + 'Chat'
+      }
+      function successR(){
+        sessionStorage.name = $('#nameR').val()
+        sessionStorage.passwd = $('#passwdR').val()
+        window.location.href = window.location.href + 'Chat'
+      }
+    </script>
 </html>

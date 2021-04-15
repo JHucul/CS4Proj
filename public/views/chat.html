@@ -30,7 +30,7 @@
   </div>
   
   <label for="nameInput">Your Name:</label>
-  <input type="text" id="nameInput" value="Name">
+  <input type="text" id="nameInput" value="Name" readonly>
   <br>
   <br>
   <input type="submit" id="sendBut" value="Send">
@@ -42,8 +42,11 @@
       <input id="fileStuff" type="file" name="filetoupload" >
     </label>
   </form>
-
-
+<script>
+  $(document).ready(function(){
+    $("#nameInput").val(sessionStorage.name)
+  })
+</script>
 <script src="/ChatHTMLScript.js"></script>
 </body>
 </html>
