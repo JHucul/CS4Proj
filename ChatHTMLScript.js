@@ -66,11 +66,12 @@ window.onload = function NewFunction() {
 }
 $(document).ready(function(){ 
   $.get("/CreateChatButtons", null, CreateChatButtons);
-  $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
+  $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);    
   $("#sendBut").click(InputText);
   $("#clearBut").click(ClearTextLog);
+  $("#nameInput").val(sessionStorage.name)
   $('#input').keydown(function(e){
   if(e.keyCode === 13)
-  	InputText();
- });
+    InputText();
+  });
 });     

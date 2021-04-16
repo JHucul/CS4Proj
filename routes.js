@@ -57,13 +57,24 @@ router.post('/clearTextLogText', function(req, res){////req.query for number, re
 router.post('/Login', function(req, res){
   fs.readFile('./logins.json', 'utf8', (err, data) => {
     const logins = JSON.parse(data);
+    for(var i=0; i<logins.users.length; i++){
+      logins.users[i].loggedin = false
+    }
     let present = false
-    logins.users.forEach(element => {
-      if(element.username == req.body.name && element.password == req.body.passwd){
+    // logins.users.forEach(element => {
+    //   if(element.username == req.body.name && element.password == req.body.passwd){
+    //     present = true
+    //     element.loggedin = true
+    //     res.sendStatus(200)
+    //   }
+    // });
+    for(var i=0; i<logins.users.length; i++){
+      if(logins.users[i].username == req.body.name && logins.users[i].password == req.body.passwd){
         present = true
+        logins.users[i].loggedin = true
         res.sendStatus(200)
       }
-    });
+    }
     if(!present)
       res.sendStatus(403)
   });
@@ -78,7 +89,9 @@ router.post('/Register', function(req, res){
 
         // parse JSON string to JSON object
         const logins = JSON.parse(data);
-
+        // for(var i=0; i<logins.users.length; i++){
+        //   logins.users[i].loggedin = false
+        // }
         // add a new record
         let present = false
         logins.users.forEach(element => {
@@ -90,7 +103,8 @@ router.post('/Register', function(req, res){
         if(present == false){
           logins.users.push({
             username: req.body.name,
-            password: req.body.passwd
+            password: req.body.passwd,
+            // loggedin: true
           });
           // write new data back to the file
           fs.writeFile('./logins.json', JSON.stringify(logins, null, 4), (err) => {
@@ -104,4 +118,5 @@ router.post('/Register', function(req, res){
     }
   });
 })
+
 module.exports = router;
