@@ -2,11 +2,13 @@
     "users": [
         {
             "username": "test",
-            "password": "test"
+            "password": "test",
+            "loggedin": false
         },
         {
             "username": "ArkoftheStorm",
-            "password": "stormy"
+            "password": "stormy",
+            "loggedin": false
         }
     ]
 }
