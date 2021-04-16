@@ -4,10 +4,12 @@ var router = express.Router();
 var formidable = require('formidable');
 var mv = require('mv');
 const fs = require('fs');
-var bodyParser = require('body-parser'); 
+var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for post
 router.use(bodyParser.json());                          //new Need to add for post
 var info = require("./InfoContainer");
+
+
 
 router.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
@@ -45,10 +47,10 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
     //info.ChatContainer[curChatNum].textLog = '';
-    fs.writeFile(info.ChatContainer[req.body.num].publicPath,'', (err) => { 
-        
-      // In case of a error throw err. 
-      if (err) throw err; 
+    fs.writeFile(info.ChatContainer[req.body.num].publicPath,'', (err) => {
+
+      // In case of a error throw err.
+      if (err) throw err;
   })
     res.json({default:'text'});
 })
@@ -118,4 +120,3 @@ router.post('/Register', function(req, res){
 })
 
 module.exports = router;
-
