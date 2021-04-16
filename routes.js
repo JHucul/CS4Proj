@@ -4,7 +4,7 @@ var router = express.Router();
 var formidable = require('formidable');
 var mv = require('mv');
 const fs = require('fs');
-var bodyParser = require('body-parser'); 
+var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for post
 router.use(bodyParser.json());                          //new Need to add for post
 var info = require("./InfoContainer");
@@ -47,22 +47,25 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
     //info.ChatContainer[curChatNum].textLog = '';
-    fs.writeFile(info.ChatContainer[req.body.num].publicPath,'', (err) => { 
-        
-      // In case of a error throw err. 
-      if (err) throw err; 
+    fs.writeFile(info.ChatContainer[req.body.num].publicPath,'', (err) => {
+
+      // In case of a error throw err.
+      if (err) throw err;
   })
     res.json({default:'text'});
 })
 router.post('/Login', function(req, res){
   fs.readFile('./logins.json', 'utf8', (err, data) => {
     const logins = JSON.parse(data);
+    let present = false
     logins.users.forEach(element => {
       if(element.username == req.body.name && element.password == req.body.passwd){
-        res.redirect('/Chat')
+        present = true
+        res.sendStatus(200)
       }
     });
-    res.json({error: 'user does not exist'})
+    if(!present)
+      res.sendStatus(403)
   });
 })
 router.post('/Register', function(req, res){
@@ -70,7 +73,7 @@ router.post('/Register', function(req, res){
 
     if (err) {
         console.log(`Error reading file from disk: ${err}`);
-        res.json({error: 'read error'});
+        res.sendStatus(500)
     } else {
 
         // parse JSON string to JSON object
@@ -80,8 +83,8 @@ router.post('/Register', function(req, res){
         let present = false
         logins.users.forEach(element => {
           if(element.username == req.body.name){
-            res.json({error: 'user already exists'});
             present = true
+            res.sendStatus(403)
           }
         });
         if(present == false){
@@ -93,13 +96,12 @@ router.post('/Register', function(req, res){
           fs.writeFile('./logins.json', JSON.stringify(logins, null, 4), (err) => {
             if (err) {
               console.log(`Error writing file: ${err}`);
-              res.json({error: 'write error'});
+              res.sendStatus(500)
             }
           });
-          res.redirect('/Chat')
+          res.sendStatus(200)
         }
     }
   });
 })
 module.exports = router;
-
