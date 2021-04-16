@@ -9,6 +9,8 @@ router.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for po
 router.use(bodyParser.json());                          //new Need to add for post
 var info = require("./InfoContainer");
 
+
+
 router.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
@@ -57,7 +59,7 @@ router.post('/Login', function(req, res){
     const logins = JSON.parse(data);
     logins.users.forEach(element => {
       if(element.username == req.body.name && element.password == req.body.passwd){
-        res.redirect('/chat')
+        res.redirect('/Chat')
       }
     });
     res.json({error: 'user does not exist'})
@@ -94,7 +96,7 @@ router.post('/Register', function(req, res){
               res.json({error: 'write error'});
             }
           });
-          res.redirect('/chat')
+          res.redirect('/Chat')
         }
     }
   });
