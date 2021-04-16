@@ -7,136 +7,158 @@
         },
         {
             "username": "ArkoftheStorm",
-<<<<<<< HEAD
             "password": "stormy",
             "loggedin": false
-=======
-            "password": "stormy"
         },
         {
             "username": "Ethan Calvert",
-            "password": "Lol"
+            "password": "Lol",
+            "loggedin": false
         },
         {
             "username": "IHateEthan",
-            "password": "1111"
+            "password": "1111",
+            "loggedin": false
         },
         {
             "username": "Conner",
-            "password": "123"
+            "password": "123",
+            "loggedin": false
         },
         {
             "username": "H3",
-            "password": "H3"
+            "password": "H3",
+            "loggedin": false
         },
         {
             "username": "",
-            "password": ""
+            "password": "",
+            "loggedin": false
         },
         {
             "username": "22",
-            "password": "22222"
+            "password": "22222",
+            "loggedin": false
         },
         {
             "username": "222",
-            "password": "22222"
+            "password": "22222",
+            "loggedin": false
         },
         {
             "username": "wwww",
-            "password": "222333"
+            "password": "222333",
+            "loggedin": false
         },
         {
             "username": "5",
-            "password": "5555"
+            "password": "5555",
+            "loggedin": false
         },
         {
             "username": "7uu7",
-            "password": "Www"
+            "password": "Www",
+            "loggedin": false
         },
         {
             "username": "E",
-            "password": "LOL"
+            "password": "LOL",
+            "loggedin": false
         },
         {
             "username": "111",
-            "password": "2222"
+            "password": "2222",
+            "loggedin": false
         },
         {
             "username": "2221",
-            "password": "222224"
+            "password": "222224",
+            "loggedin": false
         },
         {
             "username": "112",
-            "password": "111"
+            "password": "111",
+            "loggedin": false
         },
         {
             "username": "11111111",
-            "password": "11111"
+            "password": "11111",
+            "loggedin": false
         },
         {
             "username": "51",
-            "password": "1111"
+            "password": "1111",
+            "loggedin": false
         },
         {
             "username": "1111114",
-            "password": "2"
+            "password": "2",
+            "loggedin": false
         },
         {
             "username": "22wssj",
-            "password": "U"
+            "password": "U",
+            "loggedin": false
         },
         {
             "username": "5q",
-            "password": "wwww"
+            "password": "wwww",
+            "loggedin": false
         },
         {
             "username": "qweqwe",
-            "password": "tttt"
+            "password": "tttt",
+            "loggedin": false
         },
         {
             "username": "test12432123123434",
-            "password": "23123123"
+            "password": "23123123",
+            "loggedin": false
         },
         {
             "username": "1111",
-            "password": "4444"
+            "password": "4444",
+            "loggedin": false
         },
         {
             "username": "2",
-            "password": "1"
+            "password": "1",
+            "loggedin": false
         },
         {
             "username": "WEbfish",
-            "password": "1"
+            "password": "1",
+            "loggedin": false
         },
         {
             "username": "123145555",
-            "password": "5123123123"
+            "password": "5123123123",
+            "loggedin": false
         },
         {
             "username": "111555",
-            "password": "222"
+            "password": "222",
+            "loggedin": false
         },
         {
             "username": "5223322",
-            "password": "123123"
+            "password": "123123",
+            "loggedin": false
         },
         {
             "username": "SîrIntalot",
-            "password": "derbenny99"
+            "password": "derbenny99",
+            "loggedin": false
         },
         {
             "username": "12312455",
-            "password": "12312312"
+            "password": "12312312",
+            "loggedin": false
         },
         {
             "username": "SwilaAdmin3",
-            "password": "222"
-        },
-        {
-            "username": "Fartymarty",
-            "password": "poopfuck"
->>>>>>> 1cac36d9e65b2a1fcafbed02980facf76046de8e
+            "password": "222",
+            "loggedin": false
         }
     ]
 }
