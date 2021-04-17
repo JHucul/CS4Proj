@@ -106,3 +106,15 @@ PlaceHolderforIP
 Name111
 1122
 PlaceHolderforIP
+<text style=color:#7a49a5><b>test</b></text>
+12fa
+PlaceHolderforIP
+<text style=color:#7a49a5><b>test</b></text>
+adawd
+PlaceHolderforIP
+<text style=color:#7a49a5><b>test</b></text>
+awdawd
+PlaceHolderforIP
+<text style=color:#7a49a5><b>test</b></text>
+<img src='/public/images/Cat  -  Copy.PNG'>
+PlaceHolderforIP

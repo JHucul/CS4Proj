@@ -1,34 +1,15 @@
 
-test
-<img src=/public/images/260BBD42-442F-4196-9147-0C5DAFA6B7D6.jpeg>
-
-test
-<img src=/public/images/Screenshot.png>
-
-test
-<img src=/public/images/20d.gif>
-
-test
-<img src=/public/images/Screenshot.png>
-
-test
-qweqwe
-<text style=color:red><b>test</b></text>
-123
-
-<text style=color:blue><b>test</b></text>
-123
+<text style=color:#7a49a5><b>test</b></text>
+12312
 
 <text style=color:#7a49a5><b>test</b></text>
-123
-
-
-<text style=color:#7a49a5><b>test</b></text>
-<img src="/public/images/Cat  -  Copy.PNG">
+<img src='/public/images/Cat.PNG'>
 
 <text style=color:#7a49a5><b>test</b></text>
 <img src='/public/images/Cat  -  Copy.PNG'>
 
 <text style=color:#7a49a5><b>test</b></text>
-dawdwvwa
-<img src='/public/images/Capt awdawd wadawd awdawd2 2213 131 313.PNG'>
+wafwafafaf
+
+<text style=color:#7a49a5><b>test</b></text>
+awfawfwa

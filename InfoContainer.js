@@ -22,7 +22,7 @@ let chat1 = {
   		//profiles: { names = ["Andy" , "Steve" , "Tony" ] },
 	    textLog:""
 }
-*/
+
 let chat1 = new Chat("Global Chat 1", "123", "black", 
 					(__dirname,'public/logs/GlobalChat1/DisplayedChat.txt'), 
 					(__dirname,'public/logs/GlobalChat1/DevChat.txt'));
@@ -34,8 +34,9 @@ let chat3 = new Chat("Global Chat 3", "123", "blue",
 					(__dirname,'public/logs/GlobalChat3/DevChat.txt'));
 
 router.ChatContainer = [chat1, chat2, chat3]
-
+*/
 router.post('/CreateChatFunction',function(req,res) {
+	let tempContainer = req.body.ChatContainer;
 	fs.mkdir(path.join(__dirname, 'public/logs/' + req.body.name), (err) => {
 	    if (err) {
 	       //EEXIST is the error code that is given when path is arealdy there
@@ -55,7 +56,7 @@ router.post('/CreateChatFunction',function(req,res) {
 	    }
 	});
 	var inChat = false;
-	router.ChatContainer.forEach(element => {
+	tempContainer.forEach(element => {
       if(element.name == req.body.name){
         //alert("You're already in that chat");
         console.log(element.name );
@@ -66,16 +67,16 @@ router.post('/CreateChatFunction',function(req,res) {
 		let aNewChat = new Chat(req.body.name, "123", "blue", 
 						(__dirname,'public/logs/' + req.body.name + '/DisplayedChat.txt'), 
 						(__dirname,'public/logs/' + req.body.name + '/DevChat.txt'));
-		router.ChatContainer[router.ChatContainer.length] = aNewChat;
+		//tempContainer[tempContainer.length] = aNewChat;
+    	res.json({container:aNewChat});
 	}
 
-    res.json({default:"text"});
 });
-
+/*
 router.get('/CreateChatButtons',function(req,res) {
 
     res.json({chats:router.ChatContainer});
 
 });
-
+*/
 module.exports = router;
