@@ -1,34 +1,27 @@
 
 setInterval(ShowTextLogBut, 500);//speed at which the chat log is updated, lower makes it faster
-let curChatNum = 0;
+let curChatNum = JSON.parse(localStorage.getItem("curChatnumKey"));
 let dirName = "";
 let localChatContainer = [];
+let scrollDown = true;
 
 function Chat(_name, _password, _color, _publicPath, _devPath){
-  /*
-  {
-    name: _name
-    password: _password;
-    color: _color;
-    publicPath: _publicPath;
-    devPath: _devPath;
-  }
-  */
   this.name = _name;
   this.password = _password;
   this.color = _color;
   this.publicPath = _publicPath;
   this.devPath = _devPath;
-  
 }
 
 
+function JumpToBottom(){
+  if(document.getElementById("chatBox") != null)
+    document.getElementById("chatBox").scrollTop = document.getElementById("chatBox").scrollHeight
+}
 function ShowTextLog(data){
-  $("#chatBox").html(data.textLog).text()
-  /*
-	if(document.getElementById("textDisplay").scrollTop >= document.getElementById("textDisplay").scrollHeight - document.getElementById("textDisplay").scrollHeight*.5)
-	document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
-  */
+  $("#chatBox").html(data.textLog).text()  
+  if(scrollDown)
+    JumpToBottom();
 }
 function ShowTextLogBut(data){
 	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
@@ -36,11 +29,9 @@ function ShowTextLogBut(data){
 function InputText(){
   if($("#input").val() == ""  && $("#fileStuff").val() == "")//case for no pic or text
     alert("You need to input somthing to send")
-  else if($("#nameInput").val() == "" || $("#nameInput").val() == "Name")//case for no name
-    alert("You need to input your name")
   else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
     $.post('/setTextLogText', {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
-                              text:"\n" + "<text style=color:#7a49a5><b>" + $("#nameInput").val() + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
+                              text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
                               "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
     $("#picForm").submit();
     $("#input").val("");
@@ -48,26 +39,30 @@ function InputText(){
   }
   else if($("#input").val() != ""){//case for just text input
     $.post('/setTextLogText', {num:curChatNum,publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
-           text:"\n" + "<text style=color:#7a49a5><b>" + $("#nameInput").val() + "</b></text>" + "\n" + $("#input").val()+ "\n"}, null)
+           text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n"}, null)
     $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
     $.post('/setTextLogText', {num:curChatNum,publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
-                               text:"\n" + "<text style=color:#7a49a5><b>" + $("#nameInput").val() + "</b></text>" + "\n" + 
+                               text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + 
                                "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
+
     $("#picForm").submit();
     $("#fileStuff").val("");
-    $.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
-  }
+  } 
+  scrollDown = true;   
+  $.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
 }
 function ClearTextLog(data){
-	$.post("/clearTextLogText", {num:curChatNum}, null);
+	$.post("/clearTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, null);
 	ShowTextLogBut();
 }
 function ChangeChat(num){
   curChatNum = num;
-  localStorage.setItem("curChatnumKey", curChatNum);
+  $("#CurChatDisplayName").html(localChatContainer[curChatNum].name);
+  localStorage.setItem("curChatnumKey", JSON.stringify(curChatNum));
   ShowTextLogBut();
+  JumpToBottom();
   //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 }
 function CreateChatButtons(data){
@@ -100,9 +95,7 @@ window.onload = function NewFunction() {
   //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 } 
 function Initialize(data){
-  curChatNum = JSON.parse(localStorage.getItem("curChatnumKey"));
-
-  if(curChatNum.length == 0){
+  if(JSON.parse(localStorage.getItem("chatContainerKey")) == null){
     dirName = data.dir + "/";
     let chat1 = new Chat("Global Chat 1", "123", "black", 
               (dirName + 'public/logs/GlobalChat1/DisplayedChat.txt'), 
@@ -116,24 +109,33 @@ function Initialize(data){
 
     localChatContainer = [chat1, chat2, chat3];
     localStorage.setItem("chatContainerKey", JSON.stringify(localChatContainer));
+    $("#CurChatDisplayName").html(localChatContainer[curChatNum].name); 
   }
   else{
     localChatContainer = JSON.parse(localStorage.getItem("chatContainerKey"));
+    $("#CurChatDisplayName").html(localChatContainer[curChatNum].name); 
+    //localStorage.removeItem("chatContainerKey");
     console.log(localChatContainer)
   }
+  CreateChatButtons(); 
 
 }
 $(document).ready(function(){ 
   //$.get("/CreateChatButtons", null, CreateChatButtons);
   //$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog); 
-  $.get("/getDirPath", null, Initialize)  
-  CreateChatButtons(); 
+  $.get("/getDirPath", null, Initialize) 
   $("#sendBut").click(InputText);
   $("#clearBut").click(ClearTextLog);
   $("#creatBut").click(CreateNewChat);
-  $("#nameInput").val(sessionStorage.name)
+  $("#JumpBut").click(JumpToBottom);
+  $("#nameInput").html("Your Name: " + sessionStorage.name)
   $('#input').keydown(function(e){
   if(e.keyCode === 13)
     InputText();
   });
+  $("#chatBox").on("wheel", function() {
+    scrollDown = false;
+    if(document.getElementById("chatBox").scrollTop >= (document.getElementById("chatBox").scrollHeight - document.getElementById("chatBox").offsetHeight))
+      scrollDown = true;
+  })
 });     

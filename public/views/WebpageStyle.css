@@ -133,6 +133,32 @@ wbutton {
         margin: 0.4em auto;
     }
 }
+.JumpButton{
+    font-family: Sans-Serif;
+    font-size: 20px;
+    background-color: #4F4F4F;
+    color: lightgrey;
+    border: 2px solid black;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+    left: -100px;
+    top: 0px;
+    float:right;
+  
+}
+
+.NameText {
+    font-family: Sans-Serif;
+    font-size: 40px;
+    color: #7a49a5;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    left: -100px;
+    top: 0px;
+    float:right;
+}
 
 .chatDiv {
     margin-left: auto;
