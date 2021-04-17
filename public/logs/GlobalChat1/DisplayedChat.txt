@@ -13,6 +13,22 @@ test
 
 test
 qweqwe
+<text style=color:red><b>test</b></text>
+123
 
-test
-erwer
+<text style=color:blue><b>test</b></text>
+123
+
+<text style=color:#7a49a5><b>test</b></text>
+123
+
+
+<text style=color:#7a49a5><b>test</b></text>
+<img src="/public/images/Cat  -  Copy.PNG">
+
+<text style=color:#7a49a5><b>test</b></text>
+<img src='/public/images/Cat  -  Copy.PNG'>
+
+<text style=color:#7a49a5><b>test</b></text>
+dawdwvwa
+<img src='/public/images/Capt awdawd wadawd awdawd2 2213 131 313.PNG'>

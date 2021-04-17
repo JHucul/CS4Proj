@@ -19,8 +19,8 @@ function InputText(){
   else if($("#nameInput").val() == "" || $("#nameInput").val() == "Name")//case for no name
     alert("You need to input your name")
   else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
-    $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n" + 
-                              "<img src=" + "/public/images/" + $('#fileStuff')[0].files[0].name + ">" + "\n" }, null)
+    $.post('/setTextLogText', {num:curChatNum, text:"\n" + "<text style=color:#7a49a5><b>" + $("#nameInput").val() + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
+                              "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
     //$.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
     //$.post("/fileupload", {file:$('#fileStuff')[0].files[0]}, null);
     $("#picForm").submit();
@@ -28,12 +28,13 @@ function InputText(){
     $("#fileStuff").val("");
   }
   else if($("#input").val() != ""){//case for just text input
-    $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + $("#input").val()+ "\n"}, null)
+    $.post('/setTextLogText', {num:curChatNum, text:"\n" + "<text style=color:#7a49a5><b>" + $("#nameInput").val() + "</b></text>" + "\n" + $("#input").val()+ "\n"}, null)
     $.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
     $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
-    $.post('/setTextLogText', {num:curChatNum, text:"\n" + $("#nameInput").val() + "\n" + "<img src=" + "/public/images/" + $('#fileStuff')[0].files[0].name + ">" + "\n"}, null)
+    $.post('/setTextLogText', {num:curChatNum, text:"\n" + "<text style=color:#7a49a5><b>" + $("#nameInput").val() + "</b></text>" + "\n" + 
+                               "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
     //$.get("/getTextLogText", {num:curChatNum}, ShowTextLog);
     //$.post("/fileupload", {file:$('#fileStuff')[0].files[0]}, null);
     $("#picForm").submit();
