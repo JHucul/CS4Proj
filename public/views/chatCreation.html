@@ -12,7 +12,7 @@
   |
   <a href="/Chat">Chat</a>
   |
-  <a href="/CreateChat">Create Chat</a>
+  <a href="/CreateChat">Create / Remove Chat</a>
     
 
   <br>
@@ -21,36 +21,22 @@
   <label for="input">Chat Name:</label>
   <input type="text" id="chatName">
   <br>
+  <br>
+  <input type="button" id="creatBut" value="Create">
 
-    <br>
-    <input type="button" id="creatBut" value="Create">
+  <br>
+  <br>
+  <label for="removeChatName">Chat To Remove Name:</label>
+  <input type="text" id="removeChatName">
+  <br>
+  <br>
+  <input type="button" id="removeBut" value="Remove">
 
 
      <div id="includedContent"></div>
 
 
-    <script>
-      function redirect(){
-        // for adding passwords later:
-        // if(){}
-        window.location.href = '/Chat'
-      }
-
-
-      function CreateNewChat(){
-        if($("#chatName").val() != ""){
-          $.post("/CreateChatFunction", {name:$("#chatName").val()}, null)
-          redirect();
-        }
-        else if($("#chatName").val() == ""){
-          alert("Put in a chat name");
-        }
-      }
-
-      $(document).ready(function(){ 
-        $("#creatBut").click(CreateNewChat);
-      });
-    </script>
+    <script src="/ChatHTMLScript.js"></script>
 
 </body>
 </html>

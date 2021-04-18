@@ -37,3 +37,6 @@ awfwgwgawasasdasd2131
 
 testjfas
 awfwgwgawasasdasd2131
+
+<text style=color:#7a49a5><b>test</b></text>
+awfaw

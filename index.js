@@ -48,6 +48,9 @@ app.get("/CreateChat",function(req,res) {
 app.get("/IPinfo", function (req, res) {
     res.sendFile(path.resolve((__dirname, "public/views/IPinfo.html")));
 });
+app.get("/Banned", function (req, res) {
+    res.sendFile(path.resolve((__dirname, "public/views/BannedPage.html")));
+});
 
 
     
