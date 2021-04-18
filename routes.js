@@ -4,7 +4,6 @@ var router = express.Router();
 let path = require("path");
 var formidable = require('formidable');
 var mv = require('mv');
-var path = require('path');
 const http = require('http');
 const fs = require('fs');
 var bodyParser = require('body-parser'); 
@@ -150,11 +149,9 @@ router.get('/Chat', function(req, res){
         }
       })
       if(!present){
-        console.log('fail')
         res.sendStatus(403)
       }
       else{
-        console.log('succ')
         res.sendFile('public/views/Chat.html', {root: __dirname })
       }
     }
