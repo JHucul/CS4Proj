@@ -25,33 +25,36 @@
         |
         <a href="/Chat"> Chat</a>
         |
-        <a href="/CreateChat"> Create Chat</a>
+        <a href="/CreateChat"> Create / Remove Chat</a>
         <input type="button" id="clearBut" value="Clear Log">
         <br>
         <h0 class="Title" id="CurChatDisplayName">Global Chat</h0>
         <text id="nameInput" class="NameText"></text>
         <h1 class="Title">Webfsh Client</h1>
-
         <div contentEditable="false" id="wbutton" class="wbutton"></div>
 
-        <wbutton onclick="ChangeChat(0)">Global 1</wbutton>
-        <wbutton onclick="ChangeChat(1)">Global 2</wbutton>
-        <wbutton onclick="ChangeChat(2)">Global 3</wbutton>
-        <script></script>
 
         <!--
         <input type="button" id="global1" value="Global 1" onclick="ChangeChat(0)">
         <input type="button" id="global2" value="Global 2" onclick="ChangeChat(1)">
         <input type="button" id="global3" value="Global 3" onclick="ChangeChat(2)">
-    >-->
-        <br>
-        <br>
-        <div id="container"> </div>
-        <br>
+        >-->
+        <div id="Parent" style="position: relative; left: 0px;">
+          <div id="ButtonContainer" class="ButtonContainer">
+            <wbutton onclick="ChangeChat(0)">Global 1</wbutton>
+            <wbutton onclick="ChangeChat(1)">Global 2</wbutton>
+            <wbutton onclick="ChangeChat(2)">Global 3</wbutton>
+          </div>
+          <div contentEditable="false" id="chatBox" class="chatDiv"></div>
+        </div>
 
-        <div contentEditable="false" id="chatBox" class="chatDiv"></div>
-        <br>
-
+        <br><br> <br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br>
         <input type="submit" id="sendBut" value="Send">
         <label for="input"> Your Message:</label>
         <input type="text" id="input">

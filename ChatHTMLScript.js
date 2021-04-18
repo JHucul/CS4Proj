@@ -66,15 +66,17 @@ function ChangeChat(num){
   //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 }
 function CreateChatButtons(data){
-  for (var i = 3; i < JSON.parse(localStorage.getItem("chatContainerKey")).length; i++) { // -3
-    var btn = document.createElement('input');
-    btn.type = "button";
-    btn.name = i;
-    btn.id = JSON.parse(localStorage.getItem("chatContainerKey"))[i].name; 
-    btn.value = JSON.parse(localStorage.getItem("chatContainerKey"))[i].name;
-    //btn.class = "ChatButton";
-    btn.onclick = function(j) { return function() { ChangeChat(j); }; }(i)
-    $('#container').append(btn);
+  for (var i = 3; i < localChatContainer.length; i++) { // -3
+    if(localChatContainer[i] != null){
+      var btn = document.createElement('wbutton');
+      //btn.type = "button";
+      btn.name = i;
+      btn.id = JSON.parse(localStorage.getItem("chatContainerKey"))[i].name; 
+      btn.innerHTML = JSON.parse(localStorage.getItem("chatContainerKey"))[i].name;
+      //btn.class = "ChatButton";
+      btn.onclick = function(j) { return function() { ChangeChat(j); }; }(i)
+      $('#ButtonContainer').append(btn);
+    }
   }
 }   
 function CreateNewChat(){
@@ -86,14 +88,26 @@ function CreateNewChat(){
     alert("Put in a chat name");
   }
 }
+function RemoveChat(){
+  if($("#removeChatName").val() == ""){
+    alert("Put in a chat name");
+    return;
+  }
+  for (var i = 0; i < localChatContainer.length; i++) {
+    if(localChatContainer[i] != null){
+      if(localChatContainer[i].name == $("#removeChatName").val()){
+        localChatContainer[i] = null;
+        localStorage.setItem("chatContainerKey", JSON.stringify(localChatContainer));
+      }
+    }
+  }
+  window.location.href = '/Chat'
+}
 function UpdateLocalChatContainer(data){
   localChatContainer.push(data.container);
   localStorage.setItem("chatContainerKey", JSON.stringify(localChatContainer));
   console.log(localChatContainer.length);
 }
-window.onload = function NewFunction() {
-  //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
-} 
 function Initialize(data){
   if(JSON.parse(localStorage.getItem("chatContainerKey")) == null){
     dirName = data.dir + "/";
@@ -114,12 +128,15 @@ function Initialize(data){
   else{
     localChatContainer = JSON.parse(localStorage.getItem("chatContainerKey"));
     $("#CurChatDisplayName").html(localChatContainer[curChatNum].name); 
-    //localStorage.removeItem("chatContainerKey");
+    //localStorage.removeItem("chatContainerKey")[3];
     console.log(localChatContainer)
   }
   CreateChatButtons(); 
 
 }
+window.onload = function NewFunction() {
+  //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
+} 
 $(document).ready(function(){ 
   //$.get("/CreateChatButtons", null, CreateChatButtons);
   //$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog); 
@@ -127,6 +144,7 @@ $(document).ready(function(){
   $("#sendBut").click(InputText);
   $("#clearBut").click(ClearTextLog);
   $("#creatBut").click(CreateNewChat);
+  $("#removeBut").click(RemoveChat);
   $("#JumpBut").click(JumpToBottom);
   $("#nameInput").html("Your Name: " + sessionStorage.name)
   $('#input').keydown(function(e){
