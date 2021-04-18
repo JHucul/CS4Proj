@@ -3,12 +3,12 @@
         {
             "username": "test",
             "password": "test",
-            "loggedin": false
+            "loggedin": true
         },
         {
             "username": "ArkoftheStorm",
             "password": "stormy",
-            "loggedin": false
+            "loggedin": true
         },
         {
             "username": "Ethan Calvert",
