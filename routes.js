@@ -129,12 +129,8 @@ router.post('/Register', function(req, res){
           logins.users.push({
             username: req.body.name,
             password: req.body.passwd,
-<<<<<<< HEAD
-            loggedin: true
-=======
-            ip: req.body.ip,
-            // loggedin: true
->>>>>>> 2f312fefa9e4b14cd432045d9b3e6de218643632
+            loggedin: true,
+            ip: req.body.ip
           });
           // write new data back to the file
           fs.writeFile('./logins.json', JSON.stringify(logins, null, 4), (err) => {
