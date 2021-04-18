@@ -61,18 +61,10 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
 })
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
-<<<<<<< HEAD
-    //info.ChatContainer[curChatNum].textLog = '';
-    fs.writeFile(info.ChatContainer[req.body.num].publicPath,'', (err) => { 
-        
-      // In case of a error throw err. 
-      if (err) throw err; 
-=======
     fs.writeFile(req.body.publicPath,'', (err) => {
 
       // In case of a error throw err.
       if (err) throw err;
->>>>>>> 2f312fefa9e4b14cd432045d9b3e6de218643632
   })
     res.json({default:'text'});
 })
