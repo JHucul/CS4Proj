@@ -59,7 +59,7 @@ router.post('/CreateChatFunction',function(req,res) {
 	tempContainer.forEach(element => {
       if(element.name == req.body.name){
         //alert("You're already in that chat");
-        console.log(element.name );
+        //console.log(element.name );
         inChat = true;
   		}
 	});

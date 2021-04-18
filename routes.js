@@ -1,6 +1,7 @@
 
 var express = require("express");
 var router = express.Router();
+let path = require("path");
 var formidable = require('formidable');
 var mv = require('mv');
 const fs = require('fs');
@@ -27,21 +28,31 @@ router.get('/getDirPath', function(req, res){
 })
 
 router.get('/getTextLogText', function(req, res){
-  //res.json({textLog:info.ChatContainer[curChatNum].textLog});
   fs.readFile(req.query.publicPath, (err, data) => {
       if (err) throw err;
       res.json({textLog:data.toString()});
   })
 })
 
+router.post('/CheckBan', function(req, res){
+  let jsonData = JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))
+  //console.log(jsonData);
+  for (var key of Object.keys(jsonData)) {
+    if(req.body.ip == jsonData[key]){
+      res.json({banned:true});
+      return;
+    }
+  }
+  res.json({banned:false});
+})
+
 router.post('/setTextLogText', function(req, res){////req.query for get, req.body for post
-   //info.ChatContainer[curChatNum].textLog += req.body.text;
    fs.appendFile(req.body.publicPath, req.body.text, (err) => {
      if (err) {
         console.log(err);
       }
     });
-   fs.appendFile(req.body.devPath, req.body.text + "PlaceHolderforIP", (err) => {
+   fs.appendFile(req.body.devPath, req.body.text + req.body.ip, (err) => {
       if (err) {
         console.log(err);
       }
@@ -50,7 +61,6 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
 })
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
-    //info.ChatContainer[curChatNum].textLog = '';
     fs.writeFile(req.body.publicPath,'', (err) => {
 
       // In case of a error throw err.
@@ -108,6 +118,7 @@ router.post('/Register', function(req, res){
           logins.users.push({
             username: req.body.name,
             password: req.body.passwd,
+            ip: req.body.ip,
             // loggedin: true
           });
           // write new data back to the file
