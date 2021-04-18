@@ -36,13 +36,11 @@
       }
       function successL(){
         sessionStorage.name = $('#name').val()
-        sessionStorage.passwd = $('#passwd').val()
-        window.location.href = window.location.href + 'Chat'
+        $.get('/Chat', {name: sessionStorage.name},null)
       }
       function successR(){
         sessionStorage.name = $('#nameR').val()
-        sessionStorage.passwd = $('#passwdR').val()
-        window.location.href = window.location.href + 'Chat'
+        window.location.href = $.get('/Chat', {name: sessionStorage.name},null)
       }
     </script>
 </html>
