@@ -29,14 +29,20 @@
     </body>
     <script>
       function register(){
-        $.post('/Register', {name: $('#nameR').val(), passwd: $('#passwdR').val()}, success)
+        $.post('/Register', {name: $('#nameR').val(), passwd: $('#passwdR').val()}, successR)
       }
       function login(){
-        $.post('/Login', {name: $('#name').val(), passwd: $('#passwd').val()}, success)
+        $.post('/Login', {name: $('#name').val(), passwd: $('#passwd').val()}, successL)
       }
-      function success(){
+      function successR(){
+        sessionStorage.name = $('#nameR').val()
+        var location = window.location.href.split('/')
+        window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+      }
+      function successL(){
         sessionStorage.name = $('#name').val()
-        window.location.href = window.location.href + 'Chat?name=' + sessionStorage.name
+        var location = window.location.href.split('/')
+        window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
       }
     </script>
 </html>

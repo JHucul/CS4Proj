@@ -4,7 +4,12 @@
     <!--Thank you to Federico Dossena for the backround scripts! fdossena.com>-->
     <link rel="stylesheet" href="/style.css">
     <title>Chat</title>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js">
+      function chat(){
+          var location = window.location.href.split('/')
+          window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+      }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="warpspeed.min.js"></script>
 
@@ -21,9 +26,9 @@
 
 
 
-        <a href="/"> Sign In</a>
+      <input type='button' onclick="chat" value="Chat">
         |
-        <a href="/Chat"> Chat</a>
+        <a href="/"> Sign In</a>
         |
         <a href="/CreateChat"> Create / Remove Chat</a>
         <input type="button" id="clearBut" value="Clear Log">

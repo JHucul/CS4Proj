@@ -8,9 +8,9 @@
 </head>
 <body>
 
-    <a href="/">Sign In</a>
+    <input type='button' onclick="chat()" value="Chat">
     |
-    <a href="/Chat">Chat</a>
+    <a href="/">Sign In</a>
     |
     <a href="/CreateChat">Create Chat</a>
 
@@ -37,6 +37,10 @@
 
             document.getElementById("consoleinfo").innerHTML += Ipdata;
         });
+        function chat(){
+            var location = window.location.href.split('/')
+            window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+        }
     </script>
 
 </body>
