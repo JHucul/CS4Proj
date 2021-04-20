@@ -32,7 +32,12 @@ router.get('/getTextLogText', function(req, res){
       res.json({textLog:data.toString()});
   })
 })
-
+router.get('/getLoginInfoText', function(req, res){
+    res.json({text:JSON.parse(fs.readFileSync('./logins.json', 'utf-8'))});
+})
+router.get('/getBannedIPs', function(req, res){
+    res.json({text:JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))});
+})
 router.post('/CheckBan', function(req, res){
   let jsonData = JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))
   //console.log(jsonData);
@@ -43,6 +48,17 @@ router.post('/CheckBan', function(req, res){
     }
   }
   res.json({banned:false});
+})
+router.post('/CheckAdmin', function(req, res){
+  let jsonData = JSON.parse(fs.readFileSync('./AdminIPs.json', 'utf-8'))
+  //console.log(jsonData);
+  for (var key of Object.keys(jsonData)) {
+    if(req.body.ip == jsonData[key]){
+      res.json({admin:true});
+      return;
+    }
+  }
+  res.json({admin:false});
 })
 
 router.post('/setTextLogText', function(req, res){////req.query for get, req.body for post
@@ -80,6 +96,7 @@ router.post('/Login', function(req, res){
       if(logins.users[i].username == req.body.name && logins.users[i].password == req.body.passwd){
         present = true
         logins.users[i].loggedin = true
+        logins.users[i].ip = req.body.ip;
         res.sendStatus(200)
       }
     }

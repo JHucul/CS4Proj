@@ -3,7 +3,8 @@
         {
             "username": "test",
             "password": "test",
-            "loggedin": true
+            "loggedin": true,
+            "ip": "72.197.99"
         },
         {
             "username": "ArkoftheStorm",
@@ -172,6 +173,11 @@
             "username": "jibba",
             "password": "adadadad",
             "ip": "72.199.188.116"
+        },
+        {
+            "username": "afvav",
+            "password": "awwag",
+            "loggedin": true
         }
     ]
 }
