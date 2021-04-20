@@ -16,7 +16,8 @@ router.post('/fileupload', function(req, res){
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
       var newpath = __dirname + '/public/images/' + files.filetoupload.name;
-      mv(oldpath, newpath, function (err) {
+      var newPathName = newpath.replace(/%/g, "");
+      mv(oldpath, newPathName, function (err) {
         if (err) throw err;
       });
     });

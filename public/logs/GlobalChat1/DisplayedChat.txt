@@ -34,3 +34,13 @@ awdwad
 
 <text style=color:#7a49a5><b>test</b></text>
 wqeqwe
+
+<text style=color:#7a49a5><b>test</b></text>
+<img src='/public/images/Cat.PNG'>
+
+<text style=color:#7a49a5><b>test</b></text>
+12321
+<img src='/public/images/Cat.PNG'>
+
+<text style=color:#7a49a5><b>test</b></text>
+<img src='/public/images/Cat.PNG'>
