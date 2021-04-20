@@ -32,7 +32,12 @@ router.get('/getTextLogText', function(req, res){
       res.json({textLog:data.toString()});
   })
 })
-
+router.get('/getLoginInfoText', function(req, res){
+    res.json({text:JSON.parse(fs.readFileSync('./logins.json', 'utf-8'))});
+})
+router.get('/getBannedIPs', function(req, res){
+    res.json({text:JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))});
+})
 router.post('/CheckBan', function(req, res){
   let jsonData = JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))
   //console.log(jsonData);
@@ -79,7 +84,6 @@ router.post('/clearTextLogText', function(req, res){////req.query for number, re
     res.json({default:'text'});
 })
 router.post('/Login', function(req, res){
-  console.log(req.body.ip);
   fs.readFile('./logins.json', 'utf8', (err, data) => {
     const logins = JSON.parse(data);
     logins.users.forEach(element => {
@@ -107,7 +111,6 @@ router.post('/Login', function(req, res){
   });
 })
 router.post('/Register', function(req, res){
-  console.log(req.body.ip);
   fs.readFile('./logins.json', 'utf8', (err, data) => {
 
     if (err) {
