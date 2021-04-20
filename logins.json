@@ -3,14 +3,13 @@
         {
             "username": "test",
             "password": "test",
-            "loggedin": false,
-            "ip": "70.179.27.237"
+            "loggedin": true,
+            "ip": "72.197.99.239"
         },
         {
             "username": "ArkoftheStorm",
             "password": "stormy",
-            "loggedin": false,
-            "ip": "70.179.27.237"
+            "loggedin": true
         },
         {
             "username": "Ethan Calvert",

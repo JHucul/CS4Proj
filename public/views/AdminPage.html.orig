@@ -68,17 +68,19 @@
 	function DisplayIPText(data){
 		$("#IPContainer").html(JSON.stringify(data.text));
 	}
+<<<<<<< HEAD
 	function logOut(){
 		$.post("/logout", {name: sessionStorage.name}, successLO)
 	}
 	function successLO(){
 		var location = window.location.href.split('/')
 		window.location.href = location[0]
-	}
+=======
 	function AddToBanList(){
 		$.post("/AddIpToBanList", {ip:$("#IPinput").val()}, null);
 		$("#IPinput").val("");
 		UpdateText();
+>>>>>>> f1646e44f01dc4d17d7a23d6f1f67d4867db27e2
 	}
 </script>
 

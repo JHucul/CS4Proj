@@ -16,7 +16,8 @@ router.post('/fileupload', function(req, res){
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
       var newpath = __dirname + '/public/images/' + files.filetoupload.name;
-      mv(oldpath, newpath, function (err) {
+      var newPathName = newpath.replace(/%/g, "");
+      mv(oldpath, newPathName, function (err) {
         if (err) throw err;
       });
     });
@@ -40,12 +41,12 @@ router.get('/getBannedIPs', function(req, res){
 })
 router.post('/CheckBan', function(req, res){
   let jsonData = JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))
-  //console.log(jsonData);
-  for (var key of Object.keys(jsonData)) {
-    if(req.body.ip == jsonData[key]){
-      res.json({banned:true});
-      return;
-    }
+  for(var i = 0; i < jsonData.Users.length; i++) {
+      var obj = jsonData.Users[i];
+      if(req.body.ip == obj.ip){
+        res.json({banned:true});
+        return;
+      }
   }
   res.json({banned:false});
 })
@@ -73,6 +74,29 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
       }
     });
     res.json({default:"text"});
+})
+router.post('/AddIpToBanList', function(req, res){
+  fs.readFile('./BannedIPs.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log(`Error reading file from disk: ${err}`);
+        res.sendStatus(500)
+    } 
+    else{
+        // parse JSON string to JSON object
+        const banned = JSON.parse(data);
+        banned.Users.push({
+          ip: req.body.ip
+        });
+        // write new data back to the file
+        fs.writeFile('./BannedIPs.json', JSON.stringify(banned, null, 4), (err) => {
+          if (err) {
+            console.log(`Error writing file: ${err}`);
+            res.sendStatus(500)
+          }
+        });
+        res.sendStatus(200)
+    }
+  });
 })
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
