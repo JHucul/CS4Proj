@@ -74,6 +74,30 @@ router.post('/setTextLogText', function(req, res){////req.query for get, req.bod
     });
     res.json({default:"text"});
 })
+router.post('/AddIpToBanList', function(req, res){
+  console.log(req.body.ip);
+  fs.readFile('./BannedIPs.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log(`Error reading file from disk: ${err}`);
+        res.sendStatus(500)
+    } 
+    else{
+        // parse JSON string to JSON object
+        const banned = JSON.parse(data);
+        banned.Users.push({
+          ip: req.body.ip
+        });
+        // write new data back to the file
+        fs.writeFile('./BannedIPs.json', JSON.stringify(banned, null, 4), (err) => {
+          if (err) {
+            console.log(`Error writing file: ${err}`);
+            res.sendStatus(500)
+          }
+        });
+        res.sendStatus(200)
+    }
+  });
+})
 
 router.post('/clearTextLogText', function(req, res){////req.query for number, req.body for strings
     fs.writeFile(req.body.publicPath,'', (err) => {
