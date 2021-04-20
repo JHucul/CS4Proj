@@ -133,7 +133,7 @@ function Initialize(data){
     localChatContainer = JSON.parse(localStorage.getItem("chatContainerKey"));
     $("#CurChatDisplayName").html(localChatContainer[curChatNum].name); 
     //localStorage.removeItem("chatContainerKey")[3];
-    console.log(localChatContainer)
+    //console.log(localChatContainer)
   }
   CreateChatButtons(); 
 
@@ -143,7 +143,7 @@ window.onload = function NewFunction() {
   $.getJSON('https://api.bigdatacloud.net/data/ip-geolocation-with-confidence?key=' + apiKey, function(data) {
     //console.log(JSON.stringify(data, null, 2));
     userIp = data.ip;
-    console.log(userIp);
+    //console.log(userIp);
     $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);
   });
 } 

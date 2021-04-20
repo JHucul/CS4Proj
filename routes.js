@@ -44,6 +44,17 @@ router.post('/CheckBan', function(req, res){
   }
   res.json({banned:false});
 })
+router.post('/CheckAdmin', function(req, res){
+  let jsonData = JSON.parse(fs.readFileSync('./AdminIPs.json', 'utf-8'))
+  //console.log(jsonData);
+  for (var key of Object.keys(jsonData)) {
+    if(req.body.ip == jsonData[key]){
+      res.json({admin:true});
+      return;
+    }
+  }
+  res.json({admin:false});
+})
 
 router.post('/setTextLogText', function(req, res){////req.query for get, req.body for post
    fs.appendFile(req.body.publicPath, req.body.text, (err) => {
@@ -68,6 +79,7 @@ router.post('/clearTextLogText', function(req, res){////req.query for number, re
     res.json({default:'text'});
 })
 router.post('/Login', function(req, res){
+  console.log(req.body.ip);
   fs.readFile('./logins.json', 'utf8', (err, data) => {
     const logins = JSON.parse(data);
     logins.users.forEach(element => {
@@ -80,6 +92,7 @@ router.post('/Login', function(req, res){
       if(logins.users[i].username == req.body.name && logins.users[i].password == req.body.passwd){
         present = true
         logins.users[i].loggedin = true
+        logins.users[i].ip = req.body.ip;
         res.sendStatus(200)
       }
     }
@@ -94,6 +107,7 @@ router.post('/Login', function(req, res){
   });
 })
 router.post('/Register', function(req, res){
+  console.log(req.body.ip);
   fs.readFile('./logins.json', 'utf8', (err, data) => {
 
     if (err) {
