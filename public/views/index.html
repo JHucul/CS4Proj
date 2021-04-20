@@ -50,13 +50,11 @@
       }
       function successR(){
         sessionStorage.name = $('#nameR').val()
-        var location = window.location.href.split('/')
-        window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+        window.location.href = window.location.href + 'Chat?name=' + sessionStorage.name
       }
       function successL(){
         sessionStorage.name = $('#name').val()
-        var location = window.location.href.split('/')
-        window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+        window.location.href = window.location.href + 'Chat?name=' + sessionStorage.name
       }
     </script>
 </html>
