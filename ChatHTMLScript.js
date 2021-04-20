@@ -169,3 +169,14 @@ $(document).ready(function(){
       scrollDown = true;
   })
 });     
+function chat(){
+  var location = window.location.href.split('/')
+  window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+}
+function logOut(){
+  $.post("/Logout", {name: sessionStorage.name}, successLO)
+}
+function successLO(){
+  var location = window.location.href.split('/')
+  window.location.href = location[0]
+}

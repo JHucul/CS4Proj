@@ -9,6 +9,8 @@
 
   <input type='button' onclick="chat()" value="Chat">
   |
+  <input type='button' onclick="logOut()" value="Log Out">
+  |
   <a href="/">Sign In</a>
   |
   <a href="/CreateChat">Create / Remove Chat</a>
@@ -59,6 +61,13 @@
 	}
 	function DisplayIPText(data){
 		$("#IPContainer").html(JSON.stringify(data.text));
+	}
+	function logOut(){
+		$.post("/logout", {name: sessionStorage.name}, successLO)
+	}
+	function successLO(){
+		var location = window.location.href.split('/')
+		window.location.href = location[0]
 	}
 </script>
 

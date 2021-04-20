@@ -174,5 +174,23 @@ router.get('/Chat', function(req, res){
     }
   })
 })
+router.post("/Logout", function(req, res){
+  fs.readFile('./logins.json', 'utf8', (err, data) => {
+    console.log('here')
+    const logins = JSON.parse(data);
+    logins.users.forEach(element => {
+      if(element.username == req.body.name){
+        element.loggedin = false
+        res.sendStatus(200)
+      }
+    })
+    fs.writeFile('./logins.json', JSON.stringify(logins, null, 4), (err) => {
+      if (err) {
+        console.log(`Error writing file: ${err}`);
+        res.sendStatus(500)
+      }
+    })
+  })
+})
 module.exports = router;
 
