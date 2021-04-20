@@ -32,7 +32,11 @@ function InputText(){
     alert("You need to input somthing to send");
   else if($("#nameInput").html() == "Your Name: undefined")//case for if they manually skiped the login page
     alert("You need to login or register first");
-  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
+  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input    
+    if($("#fileStuff").val().split('\\').pop().includes("%")){//case if the pic has a % sign
+      alert("Sorry you can upload anything with a % sign")
+      return;
+    }
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
                               text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
                               "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
@@ -46,6 +50,10 @@ function InputText(){
     $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
+    if($("#fileStuff").val().split('\\').pop().includes("%")){
+      alert("Sorry you can upload anything with a % sign")
+      return;
+    }
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
                                text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + 
                                "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
