@@ -4,7 +4,8 @@
     <!--Thank you to Federico Dossena for the backround scripts! fdossena.com>-->
     <link rel="stylesheet" href="/style.css">
     <title>Chat</title>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="warpspeed.min.js"></script>
 
@@ -21,13 +22,18 @@
 
 
 
-        <a href="/"> Sign In</a>
+        <input type='button' onclick="logOut()" value="Log Out">
         |
-        <a href="/Chat"> Chat</a>
+        <input type='button' onclick="CreateChat()" value="Create / Remove Chat">
         |
-        <a href="/CreateChat"> Create / Remove Chat</a>
+        <a href="/">Sign In</a>
+        |
+        <a href="/Admin">Security</a>
+
+
         <input type="button" id="clearBut" value="Clear Log">
         <br>
+
         <h0 class="Title" id="CurChatDisplayName">Global Chat</h0>
         <text id="nameInput" class="NameText"></text>
         <h1 class="Title">Webfsh Client</h1>
@@ -67,7 +73,6 @@
         </form>
         <input type="button" id="JumpBut" value="Jump to bottom" class="JumpButton">
         <br>
-
         <script src="/ChatHTMLScript.js"></script>
 
     </div>

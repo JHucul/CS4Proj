@@ -51,6 +51,9 @@ app.get("/IPinfo", function (req, res) {
 app.get("/Banned", function (req, res) {
     res.sendFile(path.resolve((__dirname, "public/views/BannedPage.html")));
 });
+app.get("/Admin", function (req, res) {
+    res.sendFile(path.resolve((__dirname, "public/views/AdminPage.html")));
+});
 
 
     

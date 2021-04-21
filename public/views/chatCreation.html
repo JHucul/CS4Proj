@@ -8,11 +8,11 @@
 </head>
 <body>
 
+  <input type='button' onclick="chat()" value="Chat">
+  |
+  <input type='button' onclick="logOut()" value="Log Out">
+  |
   <a href="/">Sign In</a>
-  |
-  <a href="/Chat">Chat</a>
-  |
-  <a href="/CreateChat">Create / Remove Chat</a>
     
 
   <br>
@@ -39,4 +39,17 @@
     <script src="/ChatHTMLScript.js"></script>
 
 </body>
+<script>
+  function chat(){
+    var location = window.location.href.split('/')
+    window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+  }
+  function logOut(){
+    $.post("/logout", {name: sessionStorage.name}, successLO)
+  }
+  function successLO(){
+    var location = window.location.href.split('/')
+    window.location.href = location[0]
+  }
+</script>
 </html>

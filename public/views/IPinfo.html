@@ -8,11 +8,13 @@
 </head>
 <body>
 
+    <input type='button' onclick="chat()" value="Chat">
+    |
+    <input type='button' onclick="logOut()" value="Log Out">
+    |
+    <input type='button' onclick="CreateChat()" value="Create / Remove Chat">
+    |
     <a href="/">Sign In</a>
-    |
-    <a href="/Chat">Chat</a>
-    |
-    <a href="/CreateChat">Create Chat</a>
 
 
     <br>
@@ -37,6 +39,24 @@
 
             document.getElementById("consoleinfo").innerHTML += Ipdata;
         });
+        function chat(){
+            var location = window.location.href.split('/')
+            window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+        }
+        function logOut(){
+        $.post("/logout", {name: sessionStorage.name}, successLO)
+        }
+        function successLO(){
+            var location = window.location.href.split('/')
+            window.location.href = location[0]
+        }
+        function CreateChat(){
+            $.get("/CreateChat", {name: sessionStorage.name}, successCC)
+        }
+        function successCC(){
+            var location = window.location.href.split('/')
+            window.location.href = location[0] + 'CreateChat?name=' + sessionStorage.name
+        }
     </script>
 
 </body>

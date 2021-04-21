@@ -32,10 +32,11 @@ function InputText(){
     alert("You need to input somthing to send");
   else if($("#nameInput").html() == "Your Name: undefined")//case for if they manually skiped the login page
     alert("You need to login or register first");
-  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
+  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input    
+    let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
                               text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
-                              "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
+                              "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)
     $("#picForm").submit();
     $("#input").val("");
     $("#fileStuff").val("");
@@ -46,9 +47,10 @@ function InputText(){
     $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
+    let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
                                text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + 
-                               "<img src=" + "'/public/images/" + $("#fileStuff").val().split('\\').pop() + "'" + ">" + "\n" }, null)
+                               "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)
 
     $("#picForm").submit();
     $("#fileStuff").val("");
@@ -133,7 +135,7 @@ function Initialize(data){
     localChatContainer = JSON.parse(localStorage.getItem("chatContainerKey"));
     $("#CurChatDisplayName").html(localChatContainer[curChatNum].name); 
     //localStorage.removeItem("chatContainerKey")[3];
-    console.log(localChatContainer)
+    //console.log(localChatContainer)
   }
   CreateChatButtons(); 
 
@@ -143,7 +145,7 @@ window.onload = function NewFunction() {
   $.getJSON('https://api.bigdatacloud.net/data/ip-geolocation-with-confidence?key=' + apiKey, function(data) {
     //console.log(JSON.stringify(data, null, 2));
     userIp = data.ip;
-    console.log(userIp);
+    //console.log(userIp);
     $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);
   });
 } 
@@ -169,3 +171,21 @@ $(document).ready(function(){
       scrollDown = true;
   })
 });     
+function chat(){
+  var location = window.location.href.split('/')
+  window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
+}
+function logOut(){
+  $.post("/logout", {name: sessionStorage.name}, successLO)
+}
+function CreateChat(){
+  $.get("/CreateChat", {name: sessionStorage.name}, successCC)
+}
+function successCC(){
+  var location = window.location.href.split('/')
+  window.location.href = location[0] + 'CreateChat?name=' + sessionStorage.name
+}
+function successLO(){
+  var location = window.location.href.split('/')
+  window.location.href = location[0]
+}
