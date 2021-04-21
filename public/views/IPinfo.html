@@ -12,9 +12,9 @@
     |
     <input type='button' onclick="logOut()" value="Log Out">
     |
-    <a href="/">Sign In</a>
+    <input type='button' onclick="CreateChat()" value="Create / Remove Chat">
     |
-    <a href="/CreateChat">Create Chat</a>
+    <a href="/">Sign In</a>
 
 
     <br>
@@ -49,6 +49,13 @@
         function successLO(){
             var location = window.location.href.split('/')
             window.location.href = location[0]
+        }
+        function CreateChat(){
+            $.get("/CreateChat", {name: sessionStorage.name}, successCC)
+        }
+        function successCC(){
+            var location = window.location.href.split('/')
+            window.location.href = location[0] + 'CreateChat?name=' + sessionStorage.name
         }
     </script>
 

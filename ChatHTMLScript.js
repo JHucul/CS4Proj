@@ -176,7 +176,14 @@ function chat(){
   window.location.href = location[0] + 'Chat?name=' + sessionStorage.name
 }
 function logOut(){
-  $.post("/Logout", {name: sessionStorage.name}, successLO)
+  $.post("/logout", {name: sessionStorage.name}, successLO)
+}
+function CreateChat(){
+  $.get("/CreateChat", {name: sessionStorage.name}, successCC)
+}
+function successCC(){
+  var location = window.location.href.split('/')
+  window.location.href = location[0] + 'CreateChat?name=' + sessionStorage.name
 }
 function successLO(){
   var location = window.location.href.split('/')

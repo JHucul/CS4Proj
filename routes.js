@@ -198,7 +198,7 @@ router.get('/Chat', function(req, res){
     }
   })
 })
-router.post("/Logout", function(req, res){
+router.post("/logout", function(req, res){
   fs.readFile('./logins.json', 'utf8', (err, data) => {
     console.log('here')
     const logins = JSON.parse(data);
@@ -214,6 +214,28 @@ router.post("/Logout", function(req, res){
         res.sendStatus(500)
       }
     })
+  })
+})
+router.get('/CreateChat', function(req, res){
+  fs.readFile('./logins.json', 'utf8', (err, data) => {
+    if (err) {
+      console.log(`Error reading file from disk: ${err}`);
+      res.sendStatus(500)
+    } else {
+      const logins = JSON.parse(data);
+      let present = false
+      logins.users.forEach(element => {
+        if(element.username == req.query.name && element.loggedin == true){
+          present = true
+        }
+      })
+      if(!present){
+        res.sendStatus(403)
+      }
+      else{
+        res.sendFile('public/views/chatCreation.html', {root: __dirname })
+      }
+    }
   })
 })
 module.exports = router;
