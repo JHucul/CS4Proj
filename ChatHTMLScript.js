@@ -88,7 +88,10 @@ function CreateChatButtons(data){
 function CreateNewChat(){
   if($("#chatName").val() != ""){
     $.post("/CreateChatFunction", {name:$("#chatName").val(), ChatContainer:localChatContainer}, UpdateLocalChatContainer)
-    window.location.href = '/Chat'
+
+    alert("Chat Added!");
+
+    //window.location.href = '/Chat'
   }
   else if($("#chatName").val() == ""){
     alert("Put in a chat name");
@@ -107,7 +110,8 @@ function RemoveChat(){
       }
     }
   }
-  window.location.href = '/Chat'
+  alert("Chat Removed!");
+  //window.location.href = '/Chat'
 }
 function UpdateLocalChatContainer(data){
   localChatContainer.push(data.container);
