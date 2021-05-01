@@ -147,7 +147,7 @@ function Initialize(data){
 window.onload = function NewFunction() {
   let apiKey = 'd9e53816d07345139c58d0ea733e3870';
   $.getJSON('https://api.bigdatacloud.net/data/ip-geolocation-with-confidence?key=' + apiKey, function(data) {
-    //console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(data, null, 2));
     userIp = data.ip;
     //console.log(userIp);
     $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);

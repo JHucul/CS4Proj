@@ -1,0 +1,4 @@
+Enter a message to start chatting
+<text style=color:#7a49a5><b>nmplol</b></text>
+null
+72.197.189.124

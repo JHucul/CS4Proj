@@ -1,0 +1,18 @@
+Enter a message to start chatting
+<text style=color:#7a49a5><b>cube</b></text>
+hello?
+
+<text style=color:#7a49a5><b>cube</b></text>
+<img src='/public/images/ProBuilder house.PNG'>
+
+<text style=color:#7a49a5><b>cube</b></text>
+ggfdgdfg
+
+<text style=color:#7a49a5><b>cube</b></text>
+gfhhdfh
+
+<text style=color:#7a49a5><b>cube</b></text>
+fgh
+
+<text style=color:#7a49a5><b>cube</b></text>
+hdghghfghfghfhfhf
