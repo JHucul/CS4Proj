@@ -1,10 +1,10 @@
 
-setInterval(ShowTextLogBut, 500);//speed at which the chat log is updated, lower makes it faster
 let curChatNum = JSON.parse(localStorage.getItem("curChatnumKey"));
 let dirName = "";
 let localChatContainer = [];
 let scrollDown = true;
 let userIp = "";
+let tempText = "";
 
 function Chat(_name, _password, _color, _publicPath, _devPath){
   this.name = _name;
@@ -13,37 +13,64 @@ function Chat(_name, _password, _color, _publicPath, _devPath){
   this.publicPath = _publicPath;
   this.devPath = _devPath;
 }
-
+setInterval(ShowTextLogBut, 500);//speed at which the chat log is updated, lower makes it faster
+setTimeout(FirstTextLog, 1000);
 
 function JumpToBottom(){
   if(document.getElementById("chatBox") != null)
     document.getElementById("chatBox").scrollTop = document.getElementById("chatBox").scrollHeight
 }
 function ShowTextLog(data){
-  $("#chatBox").html(data.textLog).text()  
+  let newText = data.textLog.replace(tempText, "");
+  //console.log(newText);
+  if(newText != ""){  
+    $("#chatBox").append(newText);
+    tempText = data.textLog;
+  }
   if(scrollDown)
     JumpToBottom();
 }
 function ShowTextLogBut(data){
 	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
 }
+function FirstTextLog(data){
+	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, FirstShowTextLog);
+}
+function FirstShowTextLog(data){
+  tempText = data.textLog;
+  $("#chatBox").html(data.textLog).text()
+  if(scrollDown)
+    JumpToBottom();
+}
 function InputText(){
   if($("#input").val() == ""  && $("#fileStuff").val() == "")//case for no pic or text
     alert("You need to input somthing to send");
   else if($("#nameInput").html() == "Your Name: undefined")//case for if they manually skiped the login page
     alert("You need to login or register first");
-  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input    
-    let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
-    $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
-                              text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
-                              "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)
-    $("#picForm").submit();
+  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input 
+    if($("#input").val().includes("<script>")){
+      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
+        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + "I, " + sessionStorage.name + " may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project" + "\n"}, null)
+    }
+    else{   
+      let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
+      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
+                                text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
+                                "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)
+      $("#picForm").submit();
+    }
     $("#input").val("");
     $("#fileStuff").val("");
   }
   else if($("#input").val() != ""){//case for just text input
+    if($("#input").val().includes("<script>")){
+      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
+        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + "I, " + sessionStorage.name + " may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project" + "\n"}, null)
+    }
+    else{
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
            text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n"}, null)
+    }
     $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
@@ -142,7 +169,6 @@ function Initialize(data){
     //console.log(localChatContainer)
   }
   CreateChatButtons(); 
-
 }
 window.onload = function NewFunction() {
   let apiKey = 'd9e53816d07345139c58d0ea733e3870';
@@ -152,6 +178,13 @@ window.onload = function NewFunction() {
     //console.log(userIp);
     $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);
   });
+
+  //var source = new EventSource("demo_sse.php");
+  var source = new EventSource("./public/logs/GlobalChat3/DisplayedChat.txt");
+  source.onmessage = function(event) {
+    console.log(event.data);
+    //document.getElementById("result").innerHTML += event.data + "<br>";
+  };
 } 
 function SendToTheBanPage(data){
     if(data.banned)
