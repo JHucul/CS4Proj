@@ -25,15 +25,6 @@
             "ip": "98.176.101.244"
         },
         {
-            "username": "Conner",
-            "password": "123",
-            "loggedin": true,
-<<<<<<< Updated upstream
-            "ip": "72.197.99.239"
-=======
-            "ip": "0"
-        },
-        {
             "username": "SwilaAdmin1",
             "password": "5522",
             "loggedin": true,
@@ -328,11 +319,10 @@
             "ip": "0"
         },
         {
-            "username": "cube2",
+            "username": "Conner",
             "password": "123",
-            "loggedin": false,
+            "loggedin": true,
             "ip": "0"
->>>>>>> Stashed changes
         }
     ]
 }

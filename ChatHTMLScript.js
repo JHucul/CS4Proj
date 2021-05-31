@@ -5,6 +5,7 @@ let localChatContainer = [];
 let scrollDown = true;
 let userIp = "";
 let tempText = "";
+let date = new Date();
 
 function Chat(_name, _password, _color, _publicPath, _devPath){
   this.name = _name;
@@ -24,11 +25,20 @@ function ShowTextLog(data){
   let newText = data.textLog.replace(tempText, "");
   //console.log(newText);
   if(newText != ""){  
-    $("#chatBox").append(newText);
-    tempText = data.textLog;
+    if(newText.includes("img")){
+      tempText = data.textLog;
+      setTimeout(function() { delayedSetText(data, newText); }, 500);
+    }
+    else{
+      $("#chatBox").append(newText);
+      tempText = data.textLog;
+    }
   }
   if(scrollDown)
     JumpToBottom();
+}
+function delayedSetText(data, newText){
+  $("#chatBox").append(newText);
 }
 function ShowTextLogBut(data){
 	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
@@ -43,47 +53,98 @@ function FirstShowTextLog(data){
     JumpToBottom();
 }
 function InputText(){
+  let curTime = "";
+  if(date.getHours() <= 12){
+    if(date.getMinutes() < 10)
+      curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + date.getHours() + ":0" + date.getMinutes() + " am";
+    else
+      curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + date.getHours() + ":   " + date.getMinutes() + " am";
+  }
+  else{
+    if(date.getMinutes() < 10)
+      curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + (parseInt(date.getHours()) - 12) + ":0" + date.getMinutes() + " pm";
+    else
+      curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + (parseInt(date.getHours()) - 12) + ":" + date.getMinutes() + " pm";
+  }
+  let time = " " + "<text style='font-family: system-ui;font-size:15px;'>" + curTime + "</text>";
+
   if($("#input").val() == ""  && $("#fileStuff").val() == "")//case for no pic or text
     alert("You need to input somthing to send");
   else if($("#nameInput").html() == "Your Name: undefined")//case for if they manually skiped the login page
     alert("You need to login or register first");
-  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input 
-    if($("#input").val().includes("<script>")){
+  else if($("#input").val() != "" && $("#fileStuff").val() != ""){//case for both text and pic input
+    let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
+    if($("#input").val().includes("<") && $("#input").val().includes(">")){
       $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
-        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + "I, " + sessionStorage.name + " may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project" + "\n"}, null)
+        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + "I, " + sessionStorage.name + " may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project" + 
+        "\n" +"<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n"}, null)
+    }
+    else if($("#input").val().includes("https://")){
+      $("#picForm").submit();
+      let message = $("#input").val().split(' ');
+      let hyperLink = "";
+      for(let i = 0; i < message.length; i++){
+        if(message[i].includes("https://")){
+          hyperLink = message[i];
+          message[i] = "<a href='" + hyperLink + "'>" + hyperLink + "</a>";
+          //console.log(message[i]);
+        }
+      }
+      //console.log(hyperLink);
+      let joinedMessage = message.join(" ");
+      //console.log(joinedMessage);
+
+      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
+        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + joinedMessage + "\n" +"<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n"}, null)
     }
     else{   
-      let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
-      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
-                                text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n" + 
-                                "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)
       $("#picForm").submit();
+      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath, 
+                                text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + $("#input").val()+ "\n" + 
+                                "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)  
     }
     $("#input").val("");
     $("#fileStuff").val("");
   }
   else if($("#input").val() != ""){//case for just text input
-    if($("#input").val().includes("<script>")){
+    if($("#input").val().includes("<") && $("#input").val().includes(">")){
       $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
-        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + "I, " + sessionStorage.name + " may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project" + "\n"}, null)
+        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + "I, " + sessionStorage.name + " may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project" + "\n"}, null)
+    }
+    else if($("#input").val().includes("https://")){
+      let message = $("#input").val().split(' ');
+      let hyperLink = "";
+      for(let i = 0; i < message.length; i++){
+        if(message[i].includes("https://")){
+          hyperLink = message[i];
+          message[i] = "<a href='" + hyperLink + "'>" + hyperLink + "</a>";
+          //console.log(message[i]);
+        }
+      }
+      //console.log(hyperLink);
+      let joinedMessage = message.join(" ");
+      //console.log(joinedMessage);
+
+      $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
+        text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + joinedMessage + "\n"}, null)
     }
     else{
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
-           text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + $("#input").val()+ "\n"}, null)
+           text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + $("#input").val()+ "\n"}, null)
     }
     $("#input").val("");
   }
   else if($("#fileStuff").val() != ""){//case for just pic input
     let newPicName = $("#fileStuff").val().split('\\').pop().replace(/%/g, "");
     $.post('/setTextLogText', {num:curChatNum, ip:userIp, publicPath:localChatContainer[curChatNum].publicPath, devPath:localChatContainer[curChatNum].devPath,
-                               text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + "\n" + 
+                               text:"\n" + "<text style=color:#7a49a5><b>" + sessionStorage.name + "</b></text>" + time + "\n" + 
                                "<img src=" + "'/public/images/" + newPicName + "'" + ">" + "\n" }, null)
 
     $("#picForm").submit();
     $("#fileStuff").val("");
   } 
   scrollDown = true;   
-  $.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
+  //$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
 }
 function ClearTextLog(data){
 	$.post("/clearTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, null);

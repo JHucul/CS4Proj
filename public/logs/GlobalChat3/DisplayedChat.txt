@@ -61,3 +61,10 @@ wddaw
 <text style=color:#7a49a5><b>Conner</b></text>
 wadaw
 >>>>>>> Stashed changes
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>5/31/2021 at 2:16 pm</text>
+<a href='https://www.w3schools.com/js/js_date_methods.asp'>https://www.w3schools.com/js/js_date_methods.asp</a>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>5/31/2021 at 2:16 pm</text>
+<a href='https://www.w3schools.com/js/js_date_methods.asp'>https://www.w3schools.com/js/js_date_methods.asp</a> a\bla a alafa a
+<img src='/public/images/Cat  -  Copy.PNG'>

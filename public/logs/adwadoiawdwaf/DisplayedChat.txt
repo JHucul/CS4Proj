@@ -1,41 +1,5 @@
 Enter a message to start chatting
 
-<text style=color:#7a49a5><b>Conner</b></text>
-awd
-
-
-<text style=color:#7a49a5><b>Conner</b></text>
-fec
-
-<text style=color:#7a49a5><b>Conner</b></text>
-gag
-
-<text style=color:#7a49a5><b>Conner</b></text>
-adawdaw
-
-<text style=color:#7a49a5><b>Conner</b></text>
-adadad
-
-<text style=color:#7a49a5><b>Conner</b></text>
-gagag
-
-<text style=color:#7a49a5><b>Conner</b></text>
-awd
-
-<text style=color:#7a49a5><b>Conner</b></text>
-awd
-
-<text style=color:#7a49a5><b>Conner</b></text>
-awd
-
-<text style=color:#7a49a5><b>123</b></text>
-bradawdawd
-
-<text style=color:#7a49a5><b>123</b></text>
-awdawd
-
-<text style=color:#7a49a5><b>Conner</b></text>
-daddadadawdawd
-
-<text style=color:#7a49a5><b>Conner</b></text>
-adagaggaa
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>5/31/2021 at 2:15 pm</text>
+<a href='https://www.w3schools.com/js/js_date_methods.asp'>https://www.w3schools.com/js/js_date_methods.asp</a>
+<img src='/public/images/Cat  -  Copy.PNG'>
