@@ -43,7 +43,7 @@ router.post('/CheckBan', function(req, res){
   let jsonData = JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))
   for(var i = 0; i < jsonData.Users.length; i++) {
       var obj = jsonData.Users[i];
-      if(req.body.ip == obj.ip){
+      if(req.body.ip == obj.ip){// || req.body.userName == obj.name
         res.json({banned:true});
         return;
       }

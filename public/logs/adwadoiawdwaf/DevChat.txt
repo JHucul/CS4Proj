@@ -581,3 +581,36 @@ ad a aa <a href='https://www.w3schools.com/js/js_date_methods.asp'>https://www.w
 <text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>5/31/2021 at 2:15 pm</text>
 <a href='https://www.w3schools.com/js/js_date_methods.asp'>https://www.w3schools.com/js/js_date_methods.asp</a>
 <img src='/public/images/Cat  -  Copy.PNG'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:04 am</text>
+<a href='https://www.youtube.com/watch?v=LnnUti54ij8'>https://www.youtube.com/watch?v=LnnUti54ij8</a>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:18 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/watch?v=LnnUti54ij8'></iframe>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:18 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/watch?v=LnnUti54ij8'></iframe>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:39 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/watch?v=LnnUti54ij8'></iframe>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:45 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/watch?v=LnnUti54ij8'></iframe>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:49 am</text>
+.replace("watch?v=", "embed/")
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:49 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/embed/LnnUti54ij8'></iframe>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:49 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/watch?v=LnnUti54ij8'></iframe>
+<img src='/public/images/Game Icon.PNG'>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:49 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/embed/LnnUti54ij8'></iframe>
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/2/2021 at 10:52 am</text>
+<iframe width='420' height='345' src='https://www.youtube.com/embed/LnnUti54ij8'></iframe>
+<img src='/public/images/Game Icon.PNG'>
+68.7.116.33

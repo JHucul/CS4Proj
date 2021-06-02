@@ -58,7 +58,7 @@ function InputText(){
     if(date.getMinutes() < 10)
       curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + date.getHours() + ":0" + date.getMinutes() + " am";
     else
-      curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + date.getHours() + ":   " + date.getMinutes() + " am";
+      curTime = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " at " + date.getHours() + ":" + date.getMinutes() + " am";
   }
   else{
     if(date.getMinutes() < 10)
@@ -85,10 +85,16 @@ function InputText(){
       let hyperLink = "";
       for(let i = 0; i < message.length; i++){
         if(message[i].includes("https://")){
-          hyperLink = message[i];
-          message[i] = "<a href='" + hyperLink + "'>" + hyperLink + "</a>";
-          //console.log(message[i]);
-        }
+          if(message[i].includes("youtube") && message[i].includes("watch")){
+            hyperLink = message[i];
+            hyperLink = hyperLink.replace("watch?v=", "embed/");
+            message[i] = "<iframe width='420' height='345' src='" + hyperLink + "'></iframe>";
+          }
+          else{
+            hyperLink = message[i];
+            message[i] = "<a href='" + hyperLink + "'>" + hyperLink + "</a>";
+          }
+       }
       }
       //console.log(hyperLink);
       let joinedMessage = message.join(" ");
@@ -115,10 +121,16 @@ function InputText(){
       let message = $("#input").val().split(' ');
       let hyperLink = "";
       for(let i = 0; i < message.length; i++){
-        if(message[i].includes("https://")){
-          hyperLink = message[i];
-          message[i] = "<a href='" + hyperLink + "'>" + hyperLink + "</a>";
-          //console.log(message[i]);
+         if(message[i].includes("https://")){
+          if(message[i].includes("youtube") && message[i].includes("watch")){
+            hyperLink = message[i];
+            hyperLink = hyperLink.replace("watch?v=", "embed/");
+            message[i] = "<iframe width='420' height='345' src='" + hyperLink + "'></iframe>";
+          }
+          else{
+            hyperLink = message[i];
+            message[i] = "<a href='" + hyperLink + "'>" + hyperLink + "</a>";
+          }
         }
       }
       //console.log(hyperLink);
@@ -237,7 +249,7 @@ window.onload = function NewFunction() {
     //console.log(JSON.stringify(data, null, 2));
     userIp = data.ip;
     //console.log(userIp);
-    $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);
+    $.post("/CheckBan", {ip:userIp, userName:sessionStorage.name}, SendToTheBanPage);
   });
 
   //var source = new EventSource("demo_sse.php");
