@@ -40,3 +40,15 @@ awfwgwgawasasdasd2131
 
 <text style=color:#7a49a5><b>test</b></text>
 awfaw
+<<<<<<< Updated upstream
+=======
+
+<text style=color:#7a49a5><b>Conner</b></text>
+<script>alert("fec")</script> 
+
+<text style=color:#7a49a5><b>Conner</b></text>
+<script>alert("fec")</script>
+
+<text style=color:#7a49a5><b>Conner</b></text>
+<script></script>
+>>>>>>> Stashed changes

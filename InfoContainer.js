@@ -53,6 +53,13 @@ router.post('/CreateChatFunction',function(req,res) {
 			    // In case of a error throw err. 
 			    if (err) throw err; 
 			})
+			/*
+			fs.writeFile('public/logs/' + req.body.name + '/TestPHP.php', "<?php $myfile = fopen('webdictionary.txt', 'r') or die('Unable to open file!');echo fread($myfile);fclose($myfile);?>", (err) => { 
+			      
+			    // In case of a error throw err. 
+			    if (err) throw err; 
+			})
+			*/
 	    }
 	});
 	var inChat = false;

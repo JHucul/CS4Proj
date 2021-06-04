@@ -1,7 +1,13 @@
-
 {
-	"ip1":"1234",
-	"ip2":"123",
-	"ip3":"72.197.99.239",
-	"ip4":"98.176.101.244"
+    "Users": [
+        {
+            "username": "Conner"
+        },
+        {
+            "username": "simon"
+        },
+        {
+            "username": "pog revived"
+        }
+    ]
 }

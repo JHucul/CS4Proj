@@ -40,4 +40,22 @@ awfwgwgawasasdasd2131
 PlaceHolderforIP
 <text style=color:#7a49a5><b>test</b></text>
 awfaw
+<<<<<<< Updated upstream
 PlaceHolderforIP
+=======
+PlaceHolderforIP
+<text style=color:#7a49a5><b>Conner</b></text>
+<script>alert("fec")</script> 
+68.7.116.33
+<text style=color:#7a49a5><b>Conner</b></text>
+<script>alert("fec")</script>
+
+<text style=color:#7a49a5><b>Conner</b></text>
+<script></script>
+
+<text style=color:#7a49a5><b>Conner</b></text>
+I, Conner may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project
+
+<text style=color:#7a49a5><b>Conner</b></text>
+I, Conner may be a big dumb smelly boy that loves feet, but even I can see that this is an awesome project
+>>>>>>> Stashed changes

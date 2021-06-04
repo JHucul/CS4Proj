@@ -18,19 +18,39 @@
   <h1 class="Title">Admin Page</h1>
 
   <div>
-	  <div id="JSONContainer" class="JSONContainer"></div>
-	  <div style="position:relative;left:800px;top:35px;">
-		  <label for="input">IP to ban:</label>
-		  <input type="text" id="IPinput">
-		  <br>
-		  <br>
-		  <input type="button" id="banBut" value="Ban">
-	  	  <div id="IPContainer" class="IPJSONContainer"></div>
+	  
+      <div style="position:relative;left:5%;top:60px;">
+		<label style="position:relative;left:120px;top:0px;">Users:</label>
+ 		<div id="JSONContainer" class="JSONContainer"></div>
 	  </div>
+
+	  <div style="position:relative;left:35%;top:35px;">
+		<label style="position:relative;left:160px;top:0px;">User Info:</label>
+		<div id="displayedUser" class="UserContainer"></div>
+
+		<input type="button" id="banBut" value="Ban" style="position:relative;left:-100px;top:175px;">
+		<input type="button" id="unBanBut" value="Unban" style="position:relative;left:-80px;top:175px;">
+		<input type="button" id="addAdminBut" value="Add Admin" style="position:relative;left:0px;top:175px;">
+		<input type="button" id="removeAdminBut" value="Remove Admin" style="position:relative;left:20px;top:175px;">
+
+		<div style="position:relative;left:50px;top:200px;">
+			<label style="position:relative;left:130px;top:0px;">Admins:</label>
+			<div id="AdminContainer" class="AdminContainer"></div>
+		</div>
+	  </div>
+
+	  <div style="position:relative;left:70%;top:-10px;">
+		<label style="position:relative;left:100px;top:0px;">Banned Users:</label>
+		<div id="BannedContainer" class="JSONContainer"></div>
+	  </div>
+
   </div>
 
 
 <script>
+	let curUser = "";
+	let loginsJSON;
+
 	//setInterval(UpdateText, 500);
 	function chat(){
 	  var location = window.location.href.split('/')
@@ -38,7 +58,11 @@
 	}
 
 	$(document).ready(function(){ 
-	  $("#banBut").click(AddToBanList);
+	  $("#banBut").click(AttemptBan);
+	  $("#unBanBut").click(RemoveFromBanList);
+	  
+	  $("#addAdminBut").click(AttemptAdmin);
+	  $("#removeAdminBut").click(RemoveFromAdminList);
 	});
 	window.onload = function NewFunction() {
 	  $("#JSONContainer").html("");
@@ -47,7 +71,7 @@
 	    //console.log(JSON.stringify(data, null, 2));
 	    userIp = data.ip;
 	    //console.log(userIp);
-	    $.post("/CheckAdmin", {ip:userIp}, SendToTheBanPage);
+	    $.post("/CheckAdmin", {name:sessionStorage.name}, SendToTheBanPage);
 	  });
 	} 
 	function SendToTheBanPage(data){
@@ -60,13 +84,45 @@
 	}
 	function UpdateText(){
 		$.get("/getLoginInfoText", null, DisplayText);
-		$.get("/getBannedIPs", null, DisplayIPText);
+		$.get("/getBannedIPs", null, DisplayBannedUsers);
+		$.get("/GetAdmins", null, DisplayAdmins);
 	}
 	function DisplayText(data){
-		$("#JSONContainer").html(JSON.stringify(data.text));
+		//$("#JSONContainer").html(JSON.stringify(data.text));
+		loginsJSON = data;
+		for (var i = 0; i < data.text.users.length; i++) {
+			var btn = document.createElement('wbutton');
+			//btn.type = "button";
+			btn.id = data.text.users[i].username; 
+			btn.innerHTML = data.text.users[i].username;
+			//btn.class = "ChatButton";
+			btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(data, data.text.users[i].username)
+			$('#JSONContainer').append(btn);
+		}
 	}
-	function DisplayIPText(data){
-		$("#IPContainer").html(JSON.stringify(data.text));
+	function DisplayBannedUsers(data){
+		//$("#IPContainer").html(JSON.stringify(data.text));
+		for (var i = 0; i < data.text.Users.length; i++) {
+			if(data.text.Users[i].username != undefined){
+				var btn = document.createElement('wbutton');
+				btn.id = data.text.Users[i].username + "Banned";
+				btn.innerHTML = data.text.Users[i].username;
+				btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(loginsJSON, data.text.Users[i].username)
+				$('#BannedContainer').append(btn);
+			}
+		}
+	}
+	function DisplayAdmins(data){
+		//$("#IPContainer").html(JSON.stringify(data.text));
+		for (var i = 0; i < data.text.Users.length; i++) {
+			if(data.text.Users[i].username != undefined){
+				var btn = document.createElement('wbutton');
+				btn.id = data.text.Users[i].username + "Admin";
+				btn.innerHTML = data.text.Users[i].username;
+				btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(loginsJSON, data.text.Users[i].username)
+				$('#AdminContainer').append(btn);
+			}
+		}
 	}
 	function logOut(){
 		$.post("/logout", {name: sessionStorage.name}, successLO)
@@ -75,10 +131,60 @@
 		var location = window.location.href.split('/')
 		window.location.href = location[0]
 	}
-	function AddToBanList(){
-		$.post("/AddIpToBanList", {ip:$("#IPinput").val()}, null);
-		$("#IPinput").val("");
-		UpdateText();
+	function ShowUser(data, name){
+		for (var i = 0; i < data.text.users.length; i++) {
+			if(data.text.users[i].username == name){
+				let disp = "Name: " + data.text.users[i].username + "\n" + "Password: " + data.text.users[i].password + "\n" + "IP: " + data.text.users[i].ip;
+				$("#displayedUser").html(disp);
+				curUser = data.text.users[i].username;
+			}
+		}
+	}
+	function AttemptBan(){
+		$.post("CheckBan",  {name:curUser}, AddToBanList)
+	}
+	function AddToBanList(data){
+		if(!data.banned){
+			if(curUser != ""){
+				$.post("/AddIpToBanList", {name:curUser}, null);
+				
+				var btn = document.createElement('wbutton');
+				btn.id = curUser + "Banned";
+				btn.innerHTML = curUser;
+				btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(loginsJSON, curUser)
+				$('#BannedContainer').append(btn);
+			}
+		}
+		else{
+			alert("User is already banned");
+		}
+	}
+	function RemoveFromBanList(){
+		$("#" + curUser + "Banned").remove();
+		$.post("/RemoveIpFromBanList", {name:curUser}, null);
+	}
+	function AttemptAdmin(){
+		$.post("CheckAdmin",  {name:curUser}, AddToAdminList)
+	}
+	function AddToAdminList(data){
+		if(!data.admin){
+			if(curUser != ""){
+				$.post("/AddToAdminList", {name:curUser}, null);
+				
+				var btn = document.createElement('wbutton');
+				btn.id = curUser + "Admin";
+				btn.innerHTML = curUser;
+				btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(loginsJSON, curUser)
+				$('#AdminContainer').append(btn);
+			}
+		}
+		else{
+			alert("User is already an admin");
+		}
+	}
+	function RemoveFromAdminList(){
+		$("#" + curUser + "Admin").remove();
+		$.post("/RemoveIpFromAdminList", {name:curUser}, null);
 	}
 </script>
 

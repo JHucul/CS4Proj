@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/style.css"> 
     </head>
     <body>
-
     <h1><u>Profile</u></h1>
     <br>
     <label>Username:</label>
@@ -35,7 +34,10 @@
             //console.log(JSON.stringify(data, null, 2));
             userIp = data.ip;
             //console.log(userIp);
-            $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);
+            if(localStorage.getItem('isBanned') == null || localStorage.getItem('isBanned') == "false")
+              $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+            else
+              $.post("/CheckBan", {ip:userIp, name:localStorage.getItem('bannedName')}, SendToTheBanPage);
           });
         } 
         function SendToTheBanPage(data){
