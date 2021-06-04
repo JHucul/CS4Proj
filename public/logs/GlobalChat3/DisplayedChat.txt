@@ -68,3 +68,24 @@ wadaw
 <text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>5/31/2021 at 2:16 pm</text>
 <a href='https://www.w3schools.com/js/js_date_methods.asp'>https://www.w3schools.com/js/js_date_methods.asp</a> a\bla a alafa a
 <img src='/public/images/Cat  -  Copy.PNG'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:12 am</text>
+<img src='/public/images/3DProjectTitleScreen_Segment_0_x264.mp4'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:27 am</text>
+<img src='/public/images/Cyberpunk 2077 (C) 2020 by CD Projekt RED 12_19_2020 9_15_19 PM (2).png'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:29 am</text>
+<img src='/public/images/Cyberpunk 2077 (C) 2020 by CD Projekt RED 12_11_2020 8_27_22 PM.png'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:32 am</text>
+<img src='/public/images/Cyberpunk 2077 (C) 2020 by CD Projekt RED 12_19_2020 9_13_41 PM (2).png'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:35 am</text>
+<img src='/public/images/Cyber Heist.zip'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:37 am</text>
+<img src='/public/images/Cyber Heist.zip'>
+
+<text style=color:#7a49a5><b>Conner</b></text> <text style='font-family: system-ui;font-size:15px;'>6/4/2021 at 10:37 am</text>
+<img src='/public/images/Cat  -  Copy.PNG'>

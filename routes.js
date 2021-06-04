@@ -14,12 +14,19 @@ var info = require("./InfoContainer");
 router.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-      var oldpath = files.filetoupload.path;
-      var newpath = __dirname + '/public/images/' + files.filetoupload.name;
-      var newPathName = newpath.replace(/%/g, "");
-      mv(oldpath, newPathName, function (err) {
-        if (err) throw err;
-      });
+      try {
+        let fileSize = files.filetoupload.size / 1000000.0;
+        if(fileSize > 90){
+          console.log("File to big");
+          return;
+        }
+        var oldpath = files.filetoupload.path;
+        var newpath = __dirname + '/public/images/' + files.filetoupload.name;
+        var newPathName = newpath.replace(/%/g, "");
+        mv(oldpath, newPathName, function (err) {
+          if (err) throw err;
+        });
+      } catch (error) {}
     });
 });
 
