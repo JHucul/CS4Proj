@@ -34,7 +34,10 @@
             //console.log(JSON.stringify(data, null, 2));
             userIp = data.ip;
             //console.log(userIp);
-            $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+            if(localStorage.getItem('isBanned') == null || localStorage.getItem('isBanned') == "false")
+              $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+            else
+              $.post("/CheckBan", {ip:userIp, name:localStorage.getItem('bannedName')}, SendToTheBanPage);
           });
         } 
         function SendToTheBanPage(data){

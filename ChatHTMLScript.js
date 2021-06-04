@@ -41,7 +41,11 @@ function delayedSetText(data, newText){
   $("#chatBox").append(newText);
 }
 function ShowTextLogBut(data){
-  $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+  if(localStorage.getItem('isBanned') == null || localStorage.getItem('isBanned') == "false")
+    $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+  else
+    $.post("/CheckBan", {ip:userIp, name:localStorage.getItem('bannedName')}, SendToTheBanPage);
+    
 	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
 }
 function FirstTextLog(data){
@@ -250,7 +254,10 @@ window.onload = function NewFunction() {
     //console.log(JSON.stringify(data, null, 2));
     userIp = data.ip;
     //console.log(userIp);
-    $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+    if(localStorage.getItem('isBanned') == null || localStorage.getItem('isBanned') == "false")
+      $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
+    else
+      $.post("/CheckBan", {ip:userIp, name:localStorage.getItem('bannedName')}, SendToTheBanPage);
   });
 
   //var source = new EventSource("demo_sse.php");
@@ -261,8 +268,14 @@ window.onload = function NewFunction() {
   };
 } 
 function SendToTheBanPage(data){
-    if(data.banned)
+    if(data.banned){
       window.location.href = "/Banned";
+      localStorage.setItem("isBanned", "true");
+      localStorage.setItem("bannedName", sessionStorage.name);
+    }
+    else{
+      localStorage.setItem("isBanned", "false")
+    }
 }
 $(document).ready(function(){ 
   $.get("/getDirPath", null, Initialize) 
