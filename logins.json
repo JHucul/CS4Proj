@@ -29,6 +29,12 @@
             "password": "123",
             "loggedin": true,
             "ip": "72.197.99.239"
+        },
+        {
+            "username": "Storm",
+            "password": "stormy",
+            "loggedin": true,
+            "ip": "0"
         }
     ]
 }
