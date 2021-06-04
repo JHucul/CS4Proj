@@ -39,11 +39,14 @@ router.get('/getLoginInfoText', function(req, res){
 router.get('/getBannedIPs', function(req, res){
     res.json({text:JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))});
 })
+router.get('/GetAdmins', function(req, res){
+  res.json({text:JSON.parse(fs.readFileSync('./AdminIPs.json', 'utf-8'))});
+})
 router.post('/CheckBan', function(req, res){
   let jsonData = JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))
   for(var i = 0; i < jsonData.Users.length; i++) {
       var obj = jsonData.Users[i];
-      if(req.body.ip == obj.ip){// || req.body.userName == obj.name
+      if(req.body.name == obj.username){
         res.json({banned:true});
         return;
       }
@@ -52,12 +55,12 @@ router.post('/CheckBan', function(req, res){
 })
 router.post('/CheckAdmin', function(req, res){
   let jsonData = JSON.parse(fs.readFileSync('./AdminIPs.json', 'utf-8'))
-  //console.log(jsonData);
-  for (var key of Object.keys(jsonData)) {
-    if(req.body.ip == jsonData[key]){
-      res.json({admin:true});
-      return;
-    }
+  for(var i = 0; i < jsonData.Users.length; i++) {
+      var obj = jsonData.Users[i];
+      if(req.body.name == obj.username){
+        res.json({admin:true});
+        return;
+      }
   }
   res.json({admin:false});
 })
@@ -85,10 +88,85 @@ router.post('/AddIpToBanList', function(req, res){
         // parse JSON string to JSON object
         const banned = JSON.parse(data);
         banned.Users.push({
-          ip: req.body.ip
+          //ip: req.body.ip
+          username: req.body.name
         });
         // write new data back to the file
         fs.writeFile('./BannedIPs.json', JSON.stringify(banned, null, 4), (err) => {
+          if (err) {
+            console.log(`Error writing file: ${err}`);
+            res.sendStatus(500)
+          }
+        });
+        res.sendStatus(200)
+    }
+  });
+})
+router.post('/RemoveIpFromBanList', function(req, res){
+  fs.readFile('./BannedIPs.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log(`Error reading file from disk: ${err}`);
+        res.sendStatus(500)
+    } 
+    else{
+        // parse JSON string to JSON object
+        const banned = JSON.parse(data);
+        for(let i = 0; i < banned.Users.length; i++){
+          if(banned.Users[i].username == req.body.name){
+            banned.Users.splice(i, 1);
+          }
+        }
+        // write new data back to the file
+        fs.writeFile('./BannedIPs.json', JSON.stringify(banned, null, 4), (err) => {
+          if (err) {
+            console.log(`Error writing file: ${err}`);
+            res.sendStatus(500)
+          }
+        });
+        res.sendStatus(200)
+    }
+  });
+})
+router.post('/AddToAdminList', function(req, res){
+  fs.readFile('./AdminIPs.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log(`Error reading file from disk: ${err}`);
+        res.sendStatus(500)
+    } 
+    else{
+        // parse JSON string to JSON object
+        const banned = JSON.parse(data);
+        banned.Users.push({
+          //ip: req.body.ip
+          username: req.body.name
+        });
+        // write new data back to the file
+        fs.writeFile('./AdminIPs.json', JSON.stringify(banned, null, 4), (err) => {
+          if (err) {
+            console.log(`Error writing file: ${err}`);
+            res.sendStatus(500)
+          }
+        });
+        res.sendStatus(200)
+    }
+  });
+})
+router.post('/RemoveIpFromAdminList', function(req, res){
+  fs.readFile('./AdminIPs.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log(`Error reading file from disk: ${err}`);
+        res.sendStatus(500)
+    } 
+    else{
+        // parse JSON string to JSON object
+        const banned = JSON.parse(data);
+        for(let i = 0; i < banned.Users.length; i++){
+          if(banned.Users[i].username == req.body.name){
+            banned.Users.splice(i, 1);
+          }
+        }
+        // write new data back to the file
+        fs.writeFile('./AdminIPs.json', JSON.stringify(banned, null, 4), (err) => {
           if (err) {
             console.log(`Error writing file: ${err}`);
             res.sendStatus(500)

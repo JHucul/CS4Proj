@@ -41,6 +41,7 @@ function delayedSetText(data, newText){
   $("#chatBox").append(newText);
 }
 function ShowTextLogBut(data){
+  $.post("/CheckBan", {ip:userIp, userName:sessionStorage.name}, SendToTheBanPage);
 	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
 }
 function FirstTextLog(data){
@@ -167,7 +168,7 @@ function ChangeChat(num){
   scrollDown = true; 
   $("#CurChatDisplayName").html(localChatContainer[curChatNum].name);
   localStorage.setItem("curChatnumKey", JSON.stringify(curChatNum));
-  ShowTextLogBut();
+  FirstTextLog();
   JumpToBottom();
   //document.getElementById("textDisplay").scrollTop = document.getElementById("textDisplay").scrollHeight
 }
