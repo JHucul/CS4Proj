@@ -34,7 +34,7 @@
             //console.log(JSON.stringify(data, null, 2));
             userIp = data.ip;
             //console.log(userIp);
-            $.post("/CheckBan", {ip:userIp}, SendToTheBanPage);
+            $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
           });
         } 
         function SendToTheBanPage(data){

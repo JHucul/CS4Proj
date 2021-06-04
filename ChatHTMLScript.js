@@ -41,7 +41,7 @@ function delayedSetText(data, newText){
   $("#chatBox").append(newText);
 }
 function ShowTextLogBut(data){
-  $.post("/CheckBan", {ip:userIp, userName:sessionStorage.name}, SendToTheBanPage);
+  $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
 	$.get("/getTextLogText", {num:curChatNum, publicPath:localChatContainer[curChatNum].publicPath}, ShowTextLog);
 }
 function FirstTextLog(data){
@@ -250,7 +250,7 @@ window.onload = function NewFunction() {
     //console.log(JSON.stringify(data, null, 2));
     userIp = data.ip;
     //console.log(userIp);
-    $.post("/CheckBan", {ip:userIp, userName:sessionStorage.name}, SendToTheBanPage);
+    $.post("/CheckBan", {ip:userIp, name:sessionStorage.name}, SendToTheBanPage);
   });
 
   //var source = new EventSource("demo_sse.php");
