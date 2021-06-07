@@ -50,9 +50,18 @@
       function login(){
         $.post('/Login', {name: $('#name').val(), passwd: $('#passwd').val(), ip:userIp}, successL)
       }
-      function successR(){
-        sessionStorage.name = $('#nameR').val()
-        window.location.href = window.location.href + 'Chat?name=' + sessionStorage.name
+      function successR(data){
+        if(data.status == "NameTaken"){
+          alert("That name is already taken");
+        }
+        else if(data.status == "WrongCharacter"){
+          alert("No special characters can be in your name");
+        }
+        else if(data.status == "Good"){
+          console.log("test");
+          sessionStorage.name = $('#nameR').val()
+          window.location.href = window.location.href + 'Chat?name=' + sessionStorage.name
+        }
       }
       function successL(){
         sessionStorage.name = $('#name').val()

@@ -58,7 +58,15 @@ db.once('open', function() {
     })
   })
   router.get('/getLoginInfoText', function(req, res){
-      res.json({text:JSON.parse(fs.readFileSync('./logins.json', 'utf-8'))});
+      //res.json({text:JSON.parse(fs.readFileSync('./logins.json', 'utf-8'))});
+      Login.find(function (err, logins) {
+        if (err){
+          console.log(err);
+          res.sendStatus(500)
+        }
+        else
+          res.json({text:logins});
+      })
   })
   router.get('/getBannedIPs', function(req, res){
       res.json({text:JSON.parse(fs.readFileSync('./BannedIPs.json', 'utf-8'))});
@@ -225,31 +233,40 @@ db.once('open', function() {
 })
   router.post('/Register', function(req, res){
       let present = false
-      Login.find({username: req.body.name}, function (err, logins) {
-        if (err){
-          console.log(err);
-          res.sendStatus(500)
-        }
-        else if(logins.length){
-          present = true
-        }
-      })
-      if(present == false){
-        user = new Login({
-          username: req.body.name,
-          password: req.body.passwd,
-          loggedin: true,
-          ip: req.body.ip
-        })
-        user.save(function (err, user) {
+      if(req.body.name.includes('"') || req.body.name.includes("'")){
+        res.json({status:"WrongCharacter"});
+        return;
+      }
+      else{
+        Login.find({username: req.body.name}, function (err, logins) {
           if (err){
             console.log(err);
-            res.sendStatus(500)
-          } 
-          else{
-            res.sendStatus(200)
-          } 
-        });
+            //res.sendStatus(500)
+          }
+          else if(logins.length){
+            present = true
+            res.json({status:"NameTaken"});
+            return;
+          }
+          if(present == false){
+            user = new Login({
+              username: req.body.name,
+              password: req.body.passwd,
+              loggedin: true,
+              ip: req.body.ip
+            })
+            user.save(function (err, user) {
+              if (err){
+                console.log(err);
+                //res.sendStatus(500)
+              } 
+              else{
+                //res.sendStatus(200)
+                res.json({status:"Good"});
+              } 
+            });
+          }
+        })
       }
   })
   router.get('/Chat', function(req, res){

@@ -71,8 +71,8 @@
 	    //console.log(JSON.stringify(data, null, 2));
 	    userIp = data.ip;
 	    //console.log(userIp);
-	    $.post("/CheckAdmin", {name:sessionStorage.name}, SendToTheBanPage);
 	  });
+	  $.post("/CheckAdmin", {name:sessionStorage.name}, SendToTheBanPage);
 	} 
 	function SendToTheBanPage(data){
 		if(!data.admin){
@@ -90,13 +90,13 @@
 	function DisplayText(data){
 		//$("#JSONContainer").html(JSON.stringify(data.text));
 		loginsJSON = data;
-		for (var i = 0; i < data.text.users.length; i++) {
+		for (var i = 0; i < data.text.length; i++) {
 			var btn = document.createElement('wbutton');
 			//btn.type = "button";
-			btn.id = data.text.users[i].username; 
-			btn.innerHTML = data.text.users[i].username;
+			btn.id = data.text[i].username; 
+			btn.innerHTML = data.text[i].username;
 			//btn.class = "ChatButton";
-			btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(data, data.text.users[i].username)
+			btn.onclick = function(j, g) { return function() { ShowUser(j, g); }; }(data, data.text[i].username)
 			$('#JSONContainer').append(btn);
 		}
 	}
@@ -132,11 +132,11 @@
 		window.location.href = location[0]
 	}
 	function ShowUser(data, name){
-		for (var i = 0; i < data.text.users.length; i++) {
-			if(data.text.users[i].username == name){
-				let disp = "Name: " + data.text.users[i].username + "\n" + "Password: " + data.text.users[i].password + "\n" + "IP: " + data.text.users[i].ip;
+		for (var i = 0; i < data.text.length; i++) {
+			if(data.text[i].username == name){
+				let disp = "Name: " + data.text[i].username + "\n" + "Password: " + data.text[i].password + "\n" + "IP: " + data.text[i].ip;
 				$("#displayedUser").html(disp);
-				curUser = data.text.users[i].username;
+				curUser = data.text[i].username;
 			}
 		}
 	}
