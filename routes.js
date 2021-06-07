@@ -210,10 +210,7 @@ db.once('open', function() {
       res.json({default:'text'});
   })
   router.post('/Login', function(req, res){
-    userName = JSON.stringify(req.body.name)
-    userPassword = JSON.stringify(req.body.passwd)
-    userIP = JSON.stringify(req.body.ip)
-    Login.find({username: userName, password: userPassword}).exec( function (err, logins) {
+    Login.find({username: req.body.name, password: req.body.passwd}).exec( function (err, logins) {
       console.log("finding")
       if (err){
         console.log(err);
@@ -228,10 +225,7 @@ db.once('open', function() {
 })
   router.post('/Register', function(req, res){
       let present = false
-      userName = JSON.stringify(req.body.name)
-      userPassword = JSON.stringify(req.body.passwd)
-      userIP = JSON.stringify(req.body.ip)
-      Login.find({username: userName}, function (err, logins) {
+      Login.find({username: req.body.name}, function (err, logins) {
         if (err){
           console.log(err);
           res.sendStatus(500)
@@ -242,10 +236,10 @@ db.once('open', function() {
       })
       if(present == false){
         user = new Login({
-          username: userName,
-          password: userPassword,
+          username: req.body.name,
+          password: req.body.passwd,
           loggedin: true,
-          ip: userIP
+          ip: req.body.ip
         })
         user.save(function (err, user) {
           if (err){
@@ -259,8 +253,7 @@ db.once('open', function() {
       }
   })
   router.get('/Chat', function(req, res){
-    userName = JSON.stringify(req.query.name)
-    Login.find({username: userName, loggedin:true}).exec(function (err, logins) {
+    Login.find({username: req.query.name, loggedin:true}).exec(function (err, logins) {
       if (err){
         console.log(err);
         res.sendStatus(500)
@@ -275,8 +268,8 @@ db.once('open', function() {
   })
   router.post("/logout", function(req, res){
     // unfinished
-    userName = JSON.stringify(req.body.name)
-    Login.updateOne({username: userName}, {loggedin:false})
+    // userName = JSON.stringify(req.body.name)
+    Login.updateOne({username: req.body.name}, {loggedin:false})
   })
   router.get('/CreateChat', function(req, res){
     fs.readFile('./logins.json', 'utf8', (err, data) => {
