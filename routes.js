@@ -14,6 +14,7 @@ router.use(bodyParser.json());                          //new Need to add for po
 var info = require("./InfoContainer");
 var crypto = require('crypto');
 
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -29,14 +30,22 @@ db.once('open', function() {
   router.post('/fileupload', function(req, res){
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
-        var oldpath = files.filetoupload.path;
-        var newpath = __dirname + '/public/images/' + files.filetoupload.name;
-        var newPathName = newpath.replace(/%/g, "");
-        mv(oldpath, newPathName, function (err) {
-          if (err) throw err;
-        });
+        try {
+          let fileSize = files.filetoupload.size / 1000000.0;
+          if(fileSize > 90){
+            console.log("File to big");
+            return;
+          }
+          var oldpath = files.filetoupload.path;
+          var newpath = __dirname + '/public/images/' + files.filetoupload.name;
+          var newPathName = newpath.replace(/%/g, "");
+          mv(oldpath, newPathName, function (err) {
+            if (err) throw err;
+          });
+        } catch (error) {}
       });
   });
+
 
   router.get('/getDirPath', function(req, res){
       res.json({dir:__dirname});
