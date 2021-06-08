@@ -226,8 +226,15 @@ db.once('open', function() {
       }
       else if(logins.length){
         console.log("updating")
-        Login.updateOne({username: userName}, {loggedin:true})
-        res.sendStatus(200)
+        Login.updateOne({username: req.body.name}, {loggedin:true}).exec(function (err, logins){
+          if(err){
+            console.log(err)
+            res.sendStatus(500)
+          }
+          else
+            res.sendStatus(200)
+        })
+        
       }
     })
 })
@@ -284,9 +291,15 @@ db.once('open', function() {
     })
   })
   router.post("/logout", function(req, res){
-    // unfinished
-    // userName = JSON.stringify(req.body.name)
-    Login.updateOne({username: req.body.name}, {loggedin:false})
+    console.log(req.body.name)
+    Login.updateOne({username: req.body.name}, {loggedin:false}).exec(function (err, logins){
+      if(err){
+        console.log(err)
+        res.sendStatus(500)
+      }
+      else
+        res.sendStatus(200)
+    })
   })
   router.get('/CreateChat', function(req, res){
     fs.readFile('./logins.json', 'utf8', (err, data) => {

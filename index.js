@@ -5,6 +5,7 @@ var routes = require("./routes");
 var blacklist = require("express-blacklist");
 var address = require('address');
 var info = require("./InfoContainer");
+
 let app = express();
 app.use(bodyParser.urlencoded({ extended: true }));  //new Need to add for post
 app.use(bodyParser.json());                          //new Need to add for post
@@ -12,6 +13,14 @@ app.use(routes);
 app.use(info);
 app.use(blacklist.blockRequests('blacklist.txt'));
 let imagePathName = "";
+
+// const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
+// const credentials = {
+//     key: fs.readFileSync('key.pem'),
+//     cert: fs.readFileSync('cert.pem')
+//   };
 
 //app.use(express.static('./public'))
 app.use('/', express.static('./'));
@@ -55,12 +64,14 @@ app.get("/Admin", function (req, res) {
     res.sendFile(path.resolve((__dirname, "public/views/AdminPage.html")));
 });
 
+// var httpServer = http.createServer(app);
+// var httpsServer = https.createServer(credentials, app);
 
-    
+// httpServer.listen(4088);
+// httpsServer.listen(4008);    
 
 
-
-//below is a wrapper of http.createServer(requestHandler).listen(3000);
+//below is a wrapper of http.createServer(requestHandler).listen(4008);
 app.listen(4008,function() {
     console.log("started on port 4008");
 });
