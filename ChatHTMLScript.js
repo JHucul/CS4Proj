@@ -261,7 +261,7 @@ window.onload = function NewFunction() {
   });
 
   //var source = new EventSource("demo_sse.php");
-  var source = new EventSource("./public/logs/GlobalChat3/DisplayedChat.txt");
+  var source = new EventSource("public/logs/GlobalChat3/DisplayedChat.txt");
   source.onmessage = function(event) {
     console.log(event.data);
     //document.getElementById("result").innerHTML += event.data + "<br>";

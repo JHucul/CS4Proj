@@ -302,24 +302,16 @@ db.once('open', function() {
     })
   })
   router.get('/CreateChat', function(req, res){
-    fs.readFile('./logins.json', 'utf8', (err, data) => {
-      if (err) {
-        console.log(`Error reading file from disk: ${err}`);
+    Login.find({username: req.query.name, loggedin:true}).exec(function (err, logins) {
+      if (err){
+        console.log(err);
         res.sendStatus(500)
-      } else {
-        const logins = JSON.parse(data);
-        let present = false
-        logins.users.forEach(element => {
-          if(element.username == req.query.name && element.loggedin == true){
-            present = true
-          }
-        })
-        if(!present){
-          res.sendStatus(403)
-        }
-        else{
-          res.sendFile('public/views/chatCreation.html', {root: __dirname })
-        }
+      }
+      else if(logins.length){
+        res.sendFile('public/views/chatCreation.html', {root: __dirname })
+      }
+      else{
+        res.sendStatus(403)
       }
     })
   })
